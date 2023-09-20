@@ -11,9 +11,7 @@ const envVarsZodSchema = z.object({
     .default('3000')
     .refine((val) => Number(val)),
   DATABASE_URL: z.string(),
-  REDIS_URL: z.string(),
-  JWT_SECRET: z.string(),
-  INIT_PAYMENT_ENDPOINT: z.string()
+  JWT_SECRET: z.string()
 });
 
 const envVars = envVarsZodSchema.parse(process.env);
@@ -24,13 +22,7 @@ export default {
   db: {
     url: envVars.DATABASE_URL
   },
-  redis: {
-    url: envVars.REDIS_URL
-  },
   jwt: {
     secret: envVars.JWT_SECRET
-  },
-  paymentService: {
-    initPaymentEndpoint: envVars.INIT_PAYMENT_ENDPOINT
   }
 };
