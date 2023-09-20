@@ -9,15 +9,16 @@
     "dev": "nodemon --watch 'src/**/*.ts' --ignore 'src/**/*.spec.ts' --exec 'ts-node' -T ./src/server.ts",
     "build": "tsc",
     "start": "node ./dist/server.js",
-    "lint:check": "eslint .",
+    "lint:check": "eslint --ignore-path .eslintignore --ext .js,.ts .",
     "lint:fix": "eslint . --fix",
-    "prettier:check": "prettier --check .",
+    "prettier:check": "prettier --ignore-path .gitignore --write \"**/*.+(js|ts|json)\"",
     "prettier:fix": "prettier --write .",
     "lint-prettier": "yarn lint:check && yarn prettier:check",
-    "husky-install": "husky install",
-    "husky-prepare-pre-commit": "husky add .husky/pre-commit 'yarn lint-staged'",
     "prisma:migrate": "npx prisma migrate dev ",
     "prisma:generate": "npx prisma generate"
+  },
+  "lint-staged": {
+    "src/**/*.ts": "yarn lint-prettier"
   },
   "dependencies": {
     "@prisma/client": "^4.15.0",
@@ -49,6 +50,8 @@
     "eslint-config-prettier": "^8.8.0",
     "eslint-plugin-prettier": "^4.2.1",
     "fs": "^0.0.1-security",
+    "husky": "^8.0.3",
+    "lint-staged": "^14.0.1",
     "nodemon": "^2.0.22",
     "path": "^0.12.7",
     "prettier": "^2.8.8",
