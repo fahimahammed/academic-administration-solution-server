@@ -1,8 +1,8 @@
 <div align="center">
-  <h1>University Management System</h1>
+  <h1>Academic Administration Solution</h1>
 </div>
 <div align="center">
-  <strong>Auth Service</strong>
+  <strong>Server</strong>
 </div>
 
 ## Development
@@ -17,8 +17,6 @@ yarn dev
 
 
 ## Documentation
-
-- [**Postman Documentation**](https://documenter.getpostman.com/view/3910568/2s93ecvq6w)
 
 ## License
 
