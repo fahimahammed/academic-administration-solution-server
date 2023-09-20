@@ -1,0 +1,10 @@
+node_modules
+yarn-error.log
+.env*
+!.env*.example
+!.env*.dist
+.DS_Store
+build
+logs
+.vscode
+dist
