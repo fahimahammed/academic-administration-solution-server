@@ -1,7 +1,5 @@
 import {
-  Course,
   ExamType,
-  Prisma,
   PrismaClient,
   StudentEnrolledCourse,
   StudentEnrolledCourseMark,
@@ -10,11 +8,6 @@ import {
 import { PaginationHelper } from '../../../helpers/paginationHelper';
 import { IGenericFilterOptions, IGenericResponse } from '../../../interfaces/common';
 import prisma from '../../../shared/prisma';
-import {
-  studentEnrolledCourseMarkRelationalFields,
-  studentEnrolledCourseMarkRelationalFieldsMapper,
-  studentEnrolledCourseMarkSearchableFields
-} from './studentEnrolledCourseMark.constants';
 import {
   IStudentEnrolledCourseMarkFilterRequest,
   IUpdateStudentCourseFinalMarksPayload,
@@ -123,96 +116,12 @@ const createStudentEnrolledCourseDefaultMarks = async (
   }
 };
 
-// const getAllFromDB = async (
-//   filters: IStudentEnrolledCourseMarkFilterRequest,
-//   options: IGenericFilterOptions
-// ): Promise<IGenericResponse<StudentEnrolledCourseMark[]>> => {
-//   const { limit, page, skip } = PaginationHelper.getPaginationOptions(options);
-//   const { searchTerm, ...filterData } = filters;
-
-//   const andConditions = [];
-
-//   if (searchTerm) {
-//     andConditions.push({
-//       OR: studentEnrolledCourseMarkSearchableFields.map((field) => ({
-//         [field]: {
-//           contains: searchTerm,
-//           mode: 'insensitive'
-//         }
-//       }))
-//     });
-//   }
-
-//   if (Object.keys(filterData).length > 0) {
-//     andConditions.push({
-//       AND: Object.keys(filterData).map((key) => {
-//         if (studentEnrolledCourseMarkRelationalFields.includes(key)) {
-//           return {
-//             [studentEnrolledCourseMarkRelationalFieldsMapper[key]]: {
-//               id: (filterData as any)[key]
-//             }
-//           };
-//         } else {
-//           return {
-//             [key]: {
-//               equals: (filterData as any)[key]
-//             }
-//           };
-//         }
-//       })
-//     });
-//   }
-
-//   const whereConditions: Prisma.StudentEnrolledCourseWhereInput =
-//     andConditions.length > 0 ? { AND: andConditions } : {};
-
-//   const result = await prisma.studentEnrolledCourseMark.findMany({
-//     include: {
-//       academicSemester: true,
-//       student: true,
-//       studentEnrolledCourse: true
-//     },
-//     where: whereConditions,
-//     skip,
-//     take: limit,
-//     orderBy:
-//       options.sortBy && options.sortOrder
-//         ? { [options.sortBy]: options.sortOrder }
-//         : {
-//             createdAt: 'desc'
-//           }
-//   });
-//   const total = await prisma.studentEnrolledCourseMark.count({
-//     where: whereConditions
-//   });
-
-//   return {
-//     meta: {
-//       total,
-//       page,
-//       limit
-//     },
-//     data: result
-//   };
-// };
-
 const getAllFromDB = async (
   filters: IStudentEnrolledCourseMarkFilterRequest,
   options: IGenericFilterOptions
   // authUser: IAuthUser
 ): Promise<IGenericResponse<StudentEnrolledCourseMark[]>> => {
-  const { limit, page, skip } = PaginationHelper.getPaginationOptions(options);
-  // const { searchTerm, ...filterData } = filters;
-
-  // const student = await prisma.student.findFirst({
-  //   where: {
-  //     studentId: authUser.id
-  //   }
-  // });
-
-  // if (!student) {
-  //   throw new ApiError(httpStatus.NOT_FOUND, 'Student not found');
-  // }
+  const { limit, page } = PaginationHelper.getPaginationOptions(options);
 
   const marks = await prisma.studentEnrolledCourseMark.findMany({
     where: {
@@ -247,72 +156,6 @@ const getAllFromDB = async (
     data: marks
   };
 
-  // filterData.studentId = student.id;
-
-  // const andConditions = [];
-
-  // if (searchTerm) {
-  //   andConditions.push({
-  //     OR: studentEnrolledCourseMarkSearchableFields.map((field) => ({
-  //       [field]: {
-  //         contains: searchTerm,
-  //         mode: 'insensitive'
-  //       }
-  //     }))
-  //   });
-  // }
-
-  // if (Object.keys(filterData).length > 0) {
-  //   andConditions.push({
-  //     AND: Object.keys(filterData).map((key) => {
-  //       if (studentEnrolledCourseMarkRelationalFields.includes(key)) {
-  //         return {
-  //           [studentEnrolledCourseMarkRelationalFieldsMapper[key]]: {
-  //             id: (filterData as any)[key]
-  //           }
-  //         };
-  //       } else {
-  //         return {
-  //           [key]: {
-  //             equals: (filterData as any)[key]
-  //           }
-  //         };
-  //       }
-  //     })
-  //   });
-  // }
-
-  // const whereConditions: Prisma.StudentEnrolledCourseWhereInput =
-  //   andConditions.length > 0 ? { AND: andConditions } : {};
-
-  // const result = await prisma.studentEnrolledCourseMark.findMany({
-  //   include: {
-  //     academicSemester: true,
-  //     student: true,
-  //     studentEnrolledCourse: true
-  //   },
-  //   where: whereConditions,
-  //   skip,
-  //   take: limit,
-  //   orderBy:
-  //     options.sortBy && options.sortOrder
-  //       ? { [options.sortBy]: options.sortOrder }
-  //       : {
-  //           createdAt: 'desc'
-  //         }
-  // });
-  // const total = await prisma.studentEnrolledCourseMark.count({
-  //   where: whereConditions
-  // });
-
-  // return {
-  //   meta: {
-  //     total,
-  //     page,
-  //     limit
-  //   },
-  //   data: result
-  // };
 };
 
 const getMyCourseMarks = async (
@@ -320,7 +163,7 @@ const getMyCourseMarks = async (
   options: IGenericFilterOptions,
   authUser: IAuthUser
 ): Promise<IGenericResponse<StudentEnrolledCourseMark[]>> => {
-  const { limit, page, skip } = PaginationHelper.getPaginationOptions(options);
+  const { limit, page } = PaginationHelper.getPaginationOptions(options);
   // const { searchTerm, ...filterData } = filters;
 
   const student = await prisma.student.findFirst({
@@ -364,73 +207,6 @@ const getMyCourseMarks = async (
     },
     data: marks
   };
-
-  // filterData.studentId = student.id;
-
-  // const andConditions = [];
-
-  // if (searchTerm) {
-  //   andConditions.push({
-  //     OR: studentEnrolledCourseMarkSearchableFields.map((field) => ({
-  //       [field]: {
-  //         contains: searchTerm,
-  //         mode: 'insensitive'
-  //       }
-  //     }))
-  //   });
-  // }
-
-  // if (Object.keys(filterData).length > 0) {
-  //   andConditions.push({
-  //     AND: Object.keys(filterData).map((key) => {
-  //       if (studentEnrolledCourseMarkRelationalFields.includes(key)) {
-  //         return {
-  //           [studentEnrolledCourseMarkRelationalFieldsMapper[key]]: {
-  //             id: (filterData as any)[key]
-  //           }
-  //         };
-  //       } else {
-  //         return {
-  //           [key]: {
-  //             equals: (filterData as any)[key]
-  //           }
-  //         };
-  //       }
-  //     })
-  //   });
-  // }
-
-  // const whereConditions: Prisma.StudentEnrolledCourseWhereInput =
-  //   andConditions.length > 0 ? { AND: andConditions } : {};
-
-  // const result = await prisma.studentEnrolledCourseMark.findMany({
-  //   include: {
-  //     academicSemester: true,
-  //     student: true,
-  //     studentEnrolledCourse: true
-  //   },
-  //   where: whereConditions,
-  //   skip,
-  //   take: limit,
-  //   orderBy:
-  //     options.sortBy && options.sortOrder
-  //       ? { [options.sortBy]: options.sortOrder }
-  //       : {
-  //           createdAt: 'desc'
-  //         }
-  // });
-  // const total = await prisma.studentEnrolledCourseMark.count({
-  //   where: whereConditions
-  // });
-
-  // return {
-  //   meta: {
-  //     total,
-  //     page,
-  //     limit
-  //   },
-  //   data: result
-  // };
 };
 
 const updateStudentMarks = async (

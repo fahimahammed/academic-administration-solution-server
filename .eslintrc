@@ -13,13 +13,14 @@
     "prettier"
   ],
   "rules": {
-    "no-unused-vars": "error",
-    "prefer-const": "error",
-    "no-unused-expressions": "error",
-    "no-undef": "error",
-    "no-console": "off",
-    "@typescript-eslint/consistent-type-definitions": "off",
-    "@typescript-eslint/explicit-module-boundary-types": "off"
+    // "no-unused-vars": "warn",
+    // "prefer-const": "error",
+    // "no-unused-expressions": "error",
+    // "no-undef": "error",
+    // "no-console": "off",
+    // "@typescript-eslint/consistent-type-definitions": "off",
+    // "@typescript-eslint/explicit-module-boundary-types": "off",
+    // "no-async-promise-executor": "off"
   },
   "env": {
     "browser": true,

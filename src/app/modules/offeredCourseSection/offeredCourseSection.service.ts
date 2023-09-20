@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { OfferedCourseSection, Prisma } from '@prisma/client';
 import httpStatus from 'http-status';
 import ApiError from '../../../errors/apiError';
@@ -169,8 +170,8 @@ const getAllFromDB = async (
       options.sortBy && options.sortOrder
         ? { [options.sortBy]: options.sortOrder }
         : {
-            createdAt: 'desc'
-          }
+          createdAt: 'desc'
+        }
   });
   const total = await prisma.offeredCourseSection.count({
     where: whereConditions

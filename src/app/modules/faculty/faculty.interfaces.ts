@@ -1,14 +1,3 @@
-import { z } from 'zod';
-import { FacultyValidation } from './faculty.validations';
-import {
-  Building,
-  Course,
-  OfferedCourse,
-  OfferedCourseClassSchedule,
-  OfferedCourseSection,
-  Room
-} from '@prisma/client';
-
 export interface IFacultyFilterRequest {
   searchTerm?: string | undefined;
   academicFacultyId?: string | undefined;
@@ -39,47 +28,3 @@ export interface IFacultyMyCourseStudentsRequest {
   courseId?: string | undefined;
   offeredCourseSectionId?: string | undefined;
 }
-
-export type FacultyCreatedEvent = {
-  id: string;
-  name: {
-    firstName: string;
-    lastName: string;
-    middleName?: string;
-  };
-  dateOfBirth: string;
-  gender: string;
-  bloodGroup: string;
-  designation: string;
-  email: string;
-  contactNo: string;
-  profileImage: string;
-  academicFaculty: {
-    syncId: string;
-  };
-  academicDepartment: {
-    syncId: string;
-  };
-};
-
-export type FacultyUpdatedEvent = {
-  id: string;
-  name: {
-    firstName: string;
-    lastName: string;
-    middleName?: string;
-  };
-  dateOfBirth: string;
-  gender: string;
-  bloodGroup: string;
-  designation: string;
-  email: string;
-  contactNo: string;
-  profileImage: string;
-  academicFaculty: {
-    syncId: string;
-  };
-  academicDepartment: {
-    syncId: string;
-  };
-};

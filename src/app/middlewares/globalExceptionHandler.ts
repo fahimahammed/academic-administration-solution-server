@@ -10,6 +10,7 @@ const globalExceptionHandler: ErrorRequestHandler = (
   error,
   req: Request,
   res: Response,
+  // eslint-disable-next-line no-unused-vars
   next: NextFunction
 ) => {
   console.log('🚀 exceptionHandler ~ error:', error);
@@ -42,21 +43,21 @@ const globalExceptionHandler: ErrorRequestHandler = (
     message = error?.message;
     errorMessages = error?.message
       ? [
-          {
-            path: '',
-            message: error?.message
-          }
-        ]
+        {
+          path: '',
+          message: error?.message
+        }
+      ]
       : [];
   } else if (error instanceof Error) {
     message = error?.message;
     errorMessages = error?.message
       ? [
-          {
-            path: '',
-            message: error?.message
-          }
-        ]
+        {
+          path: '',
+          message: error?.message
+        }
+      ]
       : [];
   }
 
