@@ -17,9 +17,6 @@
     "prisma:migrate": "npx prisma migrate dev ",
     "prisma:generate": "npx prisma generate"
   },
-  "lint-staged": {
-    "src/**/*.ts": "yarn lint-prettier"
-  },
   "dependencies": {
     "@prisma/client": "^4.15.0",
     "axios": "^1.4.0",
@@ -50,8 +47,6 @@
     "eslint-config-prettier": "^8.8.0",
     "eslint-plugin-prettier": "^4.2.1",
     "fs": "^0.0.1-security",
-    "husky": "^8.0.3",
-    "lint-staged": "^14.0.1",
     "nodemon": "^2.0.22",
     "path": "^0.12.7",
     "prettier": "^2.8.8",
