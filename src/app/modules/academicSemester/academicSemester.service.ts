@@ -6,9 +6,6 @@ import { IGenericFilterOptions, IGenericResponse } from '../../../interfaces/com
 import prisma from '../../../shared/prisma';
 
 import {
-  EVENT_ACADEMIC_SEMESTER_CREATED,
-  EVENT_ACADEMIC_SEMESTER_DELETED,
-  EVENT_ACADEMIC_SEMESTER_UPDATED,
   academicSemesterSearchableFields,
   academicSemesterTitleCodeMapper
 } from './academicSemester.constants';

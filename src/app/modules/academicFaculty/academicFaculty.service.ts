@@ -4,9 +4,6 @@ import { IGenericFilterOptions, IGenericResponse } from '../../../interfaces/com
 import prisma from '../../../shared/prisma';
 
 import {
-  EVENT_ACADEMIC_FACULTY_CREATED,
-  EVENT_ACADEMIC_FACULTY_DELETED,
-  EVENT_ACADEMIC_FACULTY_UPDATED,
   academicFacultySearchableFields
 } from './academicFaculty.constants';
 import { IAcademicFacultyFilterRequest } from './academicFaculty.interfaces';

@@ -13,10 +13,10 @@ export interface IUser {
 
 // export type UserModel = Model<IUser, object, IUserMethods>;
 
-// export interface IUserFilterRequest {
-//   searchTerm?: string;
-//   role?: string;
-// }
+export interface IUserFilterRequest {
+    searchTerm?: string;
+    role?: string;
+}
 
 // export interface IAssignPermissionRequest {
 //   permissionIds: string[];
