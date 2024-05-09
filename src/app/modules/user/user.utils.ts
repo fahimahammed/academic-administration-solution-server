@@ -27,10 +27,10 @@ export const findLastStudentId = async () => {
             createdAt: 'desc'
         },
         select: {
-            studentId: true
+            userId: true
         }
     });
-    return lastStudent?.studentId ? lastStudent?.studentId.substring(4) : null;
+    return lastStudent?.userId ? lastStudent?.userId.substring(4) : null;
 };
 
 // Generate student id
@@ -41,3 +41,23 @@ export const generateStudentId = async (academicSemester: any) => {
     return newCode;
 };
 
+
+// Generate admin id
+export const findLastFacultyId = async () => {
+    const lastFaculty = await prisma.faculty.findFirst({
+        orderBy: {
+            createdAt: 'desc'
+        },
+        select: {
+            userId: true
+        }
+    });
+    return lastFaculty?.userId ? lastFaculty?.userId.substring(2) : null;
+};
+
+export const generateFacultyId = async () => {
+    const currentCode = (await findLastFacultyId()) || (0).toString().padStart(5, '0');
+    let newCode = (parseInt(currentCode) + 1).toString().padStart(5, '0');
+    newCode = `F-${newCode}`;
+    return newCode;
+};

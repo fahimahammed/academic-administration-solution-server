@@ -37,7 +37,17 @@ router.post(
     fileUploader.upload.single('file'),
     (req: Request, res: Response, next: NextFunction) => {
         req.body = JSON.parse(req.body.data)
-        return UserController.createAdmin(req, res, next)
+        return UserController.createStudent(req, res, next)
+    }
+);
+
+router.post(
+    "/create-faculty",
+    auth(UserRole.SUPER_ADMIN, UserRole.ADMIN),
+    fileUploader.upload.single('file'),
+    (req: Request, res: Response, next: NextFunction) => {
+        req.body = JSON.parse(req.body.data)
+        return UserController.createFaculty(req, res, next)
     }
 );
 

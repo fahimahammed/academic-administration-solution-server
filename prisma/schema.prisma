@@ -50,6 +50,91 @@ model Admin {
   @@map("admins")
 }
 
+model Student {
+  id                      String     @id @default(uuid())
+  userId                  String     @unique
+  user                    User       @relation(fields: [userId], references: [userId])
+  firstName               String
+  lastName                String
+  middleName              String
+  profileImage            String?
+  email                   String     @unique
+  contactNo               String
+  emergencyContactNo      String
+  gender                  Gender
+  bloodGroup              BloodGroup
+  dateOfBirth             String
+  presentAddress          String
+  permanentAddress        String
+  fatherName              String
+  fatherOccupation        String
+  fatherContactNo         String
+  motherName              String
+  motherOccupation        String
+  motherContactNo         String
+  localGuardianName       String
+  localGuardianOccupation String
+  localGuardianContactNo  String
+  localGuardianAddress    String
+  isDeleted               Boolean    @default(false)
+
+  createdAt DateTime? @default(now())
+  updatedAt DateTime? @updatedAt
+
+  academicSemesterId String
+  academicSemester   AcademicSemester @relation(fields: [academicSemesterId], references: [id])
+
+  academicDepartmentId String
+  academicDepartment   AcademicDepartment @relation(fields: [academicDepartmentId], references: [id])
+
+  academicFacultyId String
+  academicFaculty   AcademicFaculty @relation(fields: [academicFacultyId], references: [id])
+
+  studentSemesterRegistrations StudentSemesterRegistration[]
+
+  studentSemesterRegistrationCourses StudentSemesterRegistrationCourse[]
+
+  studentEnrolledCourses     StudentEnrolledCourse[]
+  studentEnrolledCourseMarks StudentEnrolledCourseMark[]
+  studentSemesterPayments    StudentSemesterPayment[]
+  studentAcademicInfos       StudentAcademicInfo[]
+
+  @@map("students")
+}
+
+model Faculty {
+  id                 String     @id @default(uuid())
+  userId             String     @unique
+  user               User       @relation(fields: [userId], references: [userId])
+  firstName          String
+  lastName           String
+  middleName         String?
+  profileImage       String?
+  email              String
+  contactNo          String
+  emergencyContactNo String
+  dateOfBirth        String
+  gender             Gender
+  bloodGroup         BloodGroup
+  designation        String
+  presentAddress     String
+  permanentAddress   String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  academicDepartment   AcademicDepartment @relation(fields: [academicDepartmentId], references: [id])
+  academicDepartmentId String
+
+  academicFaculty   AcademicFaculty @relation(fields: [academicFacultyId], references: [id])
+  academicFacultyId String
+
+  courses                     CourseFaculty[]
+  offeredCourseClassSchedules OfferedCourseClassSchedule[]
+
+  @@map("faculties")
+}
+
 model AcademicSemester {
   id         String  @id @default(uuid())
   syncId     String?
@@ -162,73 +247,6 @@ model Room {
   offeredCourseClassSchedules OfferedCourseClassSchedule[]
 
   @@map("rooms")
-}
-
-model Student {
-  id           String     @id @default(uuid())
-  userId       String     @unique
-  user         User       @relation(fields: [userId], references: [userId])
-  firstName    String
-  lastName     String
-  middleName   String
-  profileImage String
-  email        String
-  contactNo    String
-  gender       Gender
-  bloodGroup   BloodGroup
-  isDeleted    Boolean    @default(false)
-
-  createdAt DateTime? @default(now())
-  updatedAt DateTime? @updatedAt
-
-  academicSemester   AcademicSemester @relation(fields: [academicSemesterId], references: [id])
-  academicSemesterId String
-
-  academicDepartment   AcademicDepartment @relation(fields: [academicDepartmentId], references: [id])
-  academicDepartmentId String
-
-  academicFaculty   AcademicFaculty @relation(fields: [academicFacultyId], references: [id])
-  academicFacultyId String
-
-  studentSemesterRegistrations StudentSemesterRegistration[]
-
-  studentSemesterRegistrationCourses StudentSemesterRegistrationCourse[]
-
-  studentEnrolledCourses     StudentEnrolledCourse[]
-  studentEnrolledCourseMarks StudentEnrolledCourseMark[]
-  studentSemesterPayments    StudentSemesterPayment[]
-  studentAcademicInfos       StudentAcademicInfo[]
-
-  @@map("students")
-}
-
-model Faculty {
-  id           String     @id @default(uuid())
-  userId       String     @unique
-  user         User       @relation(fields: [userId], references: [userId])
-  firstName    String
-  lastName     String
-  middleName   String
-  profileImage String
-  email        String
-  contactNo    String
-  gender       Gender
-  bloodGroup   BloodGroup
-  designation  String
-
-  createdAt DateTime? @default(now())
-  updatedAt DateTime? @updatedAt
-
-  academicDepartment   AcademicDepartment @relation(fields: [academicDepartmentId], references: [id])
-  academicDepartmentId String
-
-  academicFaculty   AcademicFaculty @relation(fields: [academicFacultyId], references: [id])
-  academicFacultyId String
-
-  courses                     CourseFaculty[]
-  offeredCourseClassSchedules OfferedCourseClassSchedule[]
-
-  @@map("faculties")
 }
 
 model CourseFaculty {
