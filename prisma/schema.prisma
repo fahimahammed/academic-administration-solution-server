@@ -7,6 +7,49 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model User {
+  id                        String     @id @default(uuid())
+  userId                    String     @unique
+  role                      UserRole   @default(STUDENT)
+  password                  String
+  needsPasswordChange       Boolean    @default(true)
+  passwordResetToken        String?
+  passwordResetTokenExpires DateTime?
+  status                    UserStatus @default(ACTIVE)
+  createdAt                 DateTime?  @default(now())
+  updatedAt                 DateTime?  @updatedAt
+  admin                     Admin?
+  student                   Student?
+  faculty                   Faculty?
+
+  @@map("users")
+}
+
+model Admin {
+  id                 String     @id @default(uuid())
+  userId             String     @unique
+  user               User       @relation(fields: [userId], references: [userId])
+  firstName          String
+  lastName           String
+  middleName         String?
+  dateOfBirth        String?
+  gender             Gender
+  bloodGroup         BloodGroup
+  email              String     @unique
+  contactNo          String
+  emergencyContactNo String
+  presentAddress     String
+  permanentAddress   String
+  designation        String
+  profileImage       String?
+  isDeleted          Boolean    @default(false)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("admins")
+}
+
 model AcademicSemester {
   id         String  @id @default(uuid())
   syncId     String?
@@ -122,16 +165,18 @@ model Room {
 }
 
 model Student {
-  id           String @id @default(uuid())
-  studentId    String
+  id           String     @id @default(uuid())
+  userId       String     @unique
+  user         User       @relation(fields: [userId], references: [userId])
   firstName    String
   lastName     String
   middleName   String
   profileImage String
   email        String
   contactNo    String
-  gender       String
-  bloodGroup   String
+  gender       Gender
+  bloodGroup   BloodGroup
+  isDeleted    Boolean    @default(false)
 
   createdAt DateTime? @default(now())
   updatedAt DateTime? @updatedAt
@@ -158,16 +203,17 @@ model Student {
 }
 
 model Faculty {
-  id           String @id @default(uuid())
-  facultyId    String
+  id           String     @id @default(uuid())
+  userId       String     @unique
+  user         User       @relation(fields: [userId], references: [userId])
   firstName    String
   lastName     String
   middleName   String
   profileImage String
   email        String
   contactNo    String
-  gender       String
-  bloodGroup   String
+  gender       Gender
+  bloodGroup   BloodGroup
   designation  String
 
   createdAt DateTime? @default(now())
@@ -430,6 +476,36 @@ model StudentAcademicInfo {
 }
 
 // Enums
+
+enum UserRole {
+  SUPER_ADMIN
+  ADMIN
+  STUDENT
+  FACULTY
+}
+
+enum Gender {
+  MALE
+  FEMALE
+  OTHERS
+}
+
+enum UserStatus {
+  ACTIVE
+  INACTIVE
+  DELETED
+}
+
+enum BloodGroup {
+  A_POSITIVE
+  A_NEGATIVE
+  B_POSITIVE
+  B_NEGATIVE
+  AB_POSITIVE
+  AB_NEGATIVE
+  O_POSITIVE
+  O_NEGATIVE
+}
 
 enum SemesterRegistrationStatus {
   UPCOMING

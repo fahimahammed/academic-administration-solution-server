@@ -4,6 +4,7 @@ import { AcademicFacultyController } from './academicFaculty.controller';
 import { AcademicFacultyValidation } from './academicFaculty.validations';
 import { ENUM_USER_ROLE } from '../../../enums/user';
 import auth from '../../middlewares/auth';
+import { UserRole } from '@prisma/client';
 
 const router = express.Router();
 
@@ -13,20 +14,20 @@ router.get('/:id', AcademicFacultyController.getByIdFromDB);
 router.post(
   '/',
   validateRequest(AcademicFacultyValidation.create),
-  auth(ENUM_USER_ROLE.SUPER_ADMIN, ENUM_USER_ROLE.ADMIN),
+  auth(UserRole.SUPER_ADMIN, UserRole.ADMIN),
   AcademicFacultyController.insertIntoDB
 );
 
 router.patch(
   '/:id',
   validateRequest(AcademicFacultyValidation.update),
-  auth(ENUM_USER_ROLE.SUPER_ADMIN, ENUM_USER_ROLE.ADMIN),
+  auth(UserRole.SUPER_ADMIN, UserRole.ADMIN),
   AcademicFacultyController.updateOneInDB
 );
 
 router.delete(
   '/:id',
-  auth(ENUM_USER_ROLE.SUPER_ADMIN, ENUM_USER_ROLE.ADMIN),
+  auth(UserRole.SUPER_ADMIN, UserRole.ADMIN),
   AcademicFacultyController.deleteByIdFromDB
 );
 
