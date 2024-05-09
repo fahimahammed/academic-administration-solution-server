@@ -34,6 +34,20 @@ const createStudent = async (req: Request, res: Response, next: NextFunction) =>
     }
 };
 
+const createFaculty = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const result = await UserService.createFaculty(req);
+        sendResponse(res, {
+            statusCode: httpStatus.OK,
+            success: true,
+            message: 'Faculty created successfully',
+            data: result
+        });
+    } catch (error) {
+        next(error);
+    }
+};
+
 const getAllFromDB = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const filters = pick(req.query, userFilterableFields);
@@ -116,6 +130,7 @@ const getMyProfile = async (req: Request, res: Response, next: NextFunction) => 
 export const UserController = {
     createAdmin,
     createStudent,
+    createFaculty,
     getAllFromDB,
     getByIdFromDB,
     updateOneInDB,

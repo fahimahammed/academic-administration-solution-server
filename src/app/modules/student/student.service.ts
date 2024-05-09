@@ -91,8 +91,8 @@ const getAllFromDB = async (
       options.sortBy && options.sortOrder
         ? { [options.sortBy]: options.sortOrder }
         : {
-            createdAt: 'desc'
-          }
+          createdAt: 'desc'
+        }
   });
   const total = await prisma.student.count({
     where: whereConditions
@@ -128,7 +128,7 @@ const getMyCourses = async (
     where: {
       ...filters,
       student: {
-        studentId: authUser.id
+        userId: authUser.id
       }
     },
     include: {
@@ -160,7 +160,7 @@ const getMyCourseSchedules = async (
   const result = await prisma.studentSemesterRegistrationCourse.findMany({
     where: {
       student: {
-        studentId: authUser.id
+        userId: authUser.id
       },
       semesterRegistration: {
         academicSemester: {
@@ -204,7 +204,7 @@ const getMyCourseSchedules = async (
 const getByIdFromDB = async (id: string): Promise<Student | null> => {
   const result = await prisma.student.findUnique({
     where: {
-      id
+      userId: id
     },
     include: {
       academicFaculty: true,
@@ -218,7 +218,7 @@ const getByIdFromDB = async (id: string): Promise<Student | null> => {
 const updateOneInDB = async (id: string, payload: Partial<Student>): Promise<Student> => {
   const result = await prisma.student.update({
     where: {
-      id
+      userId: id
     },
     data: payload,
     include: {
@@ -233,7 +233,7 @@ const updateOneInDB = async (id: string, payload: Partial<Student>): Promise<Stu
 const deleteByIdFromDB = async (id: string): Promise<Student> => {
   const result = await prisma.student.delete({
     where: {
-      id
+      userId: id
     },
     include: {
       academicFaculty: true,
@@ -248,7 +248,7 @@ const getMyAcademicInfo = async (authUser: IAuthUser): Promise<any> => {
   const academicInfo = await prisma.studentAcademicInfo.findFirst({
     where: {
       student: {
-        studentId: authUser.id
+        userId: authUser.id
       }
     }
   });
@@ -256,7 +256,7 @@ const getMyAcademicInfo = async (authUser: IAuthUser): Promise<any> => {
   const enrolledCourses = await prisma.studentEnrolledCourse.findMany({
     where: {
       student: {
-        studentId: authUser.id
+        userId: authUser.id
       },
       status: StudentEnrolledCourseStatus.COMPLETED
     },
@@ -274,58 +274,6 @@ const getMyAcademicInfo = async (authUser: IAuthUser): Promise<any> => {
   return { academicInfo, courses: groupedData };
 };
 
-const createStudentFromEvent = async (e: StudentCreatedEvent): Promise<void> => {
-  const student: Partial<Student> = {
-    studentId: e.id,
-    firstName: e.name.firstName,
-    lastName: e.name.lastName,
-    middleName: e.name.middleName,
-    profileImage: e.profileImage,
-    email: e.email,
-    contactNo: e.contactNo,
-    gender: e.gender,
-    bloodGroup: e.bloodGroup,
-    academicDepartmentId: e.academicDepartment.syncId,
-    academicFacultyId: e.academicFaculty.syncId,
-    academicSemesterId: e.academicSemester.syncId
-  };
-
-  await insertIntoDB(student as Student);
-};
-
-const updateStudentFromEvent = async (e: StudentUpdatedEvent): Promise<void> => {
-  const isExist = await prisma.student.findFirst({
-    where: {
-      studentId: e.id
-    }
-  });
-
-  if (!isExist) {
-    await createStudentFromEvent(e);
-    return;
-  } else {
-    const student: Partial<Student> = {
-      studentId: e.id,
-      firstName: e.name.firstName,
-      lastName: e.name.lastName,
-      middleName: e.name.middleName,
-      profileImage: e.profileImage,
-      email: e.email,
-      contactNo: e.contactNo,
-      gender: e.gender,
-      bloodGroup: e.bloodGroup,
-      academicDepartmentId: e.academicDepartment.syncId,
-      academicFacultyId: e.academicFaculty.syncId,
-      academicSemesterId: e.academicSemester.syncId
-    };
-    await prisma.student.updateMany({
-      where: {
-        studentId: e.id
-      },
-      data: student as Student
-    });
-  }
-};
 
 export const StudentService = {
   insertIntoDB,
@@ -335,7 +283,5 @@ export const StudentService = {
   deleteByIdFromDB,
   getMyCourses,
   getMyCourseSchedules,
-  createStudentFromEvent,
   getMyAcademicInfo,
-  updateStudentFromEvent
 };

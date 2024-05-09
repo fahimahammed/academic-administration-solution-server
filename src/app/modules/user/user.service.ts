@@ -2,7 +2,7 @@ import * as bcrypt from 'bcryptjs';
 import config from '../../../config';
 import { Admin, Faculty, Prisma, PrismaClient, Student, User, UserRole } from '@prisma/client';
 import prisma from '../../../shared/prisma';
-import { generateAdminId } from './user.utils';
+import { generateAdminId, generateFacultyId, generateStudentId } from './user.utils';
 import { Request } from 'express';
 import { IFile } from '../../../interfaces/file';
 import { fileUploader } from '../../../helpers/fileUploader';
@@ -12,14 +12,19 @@ import { PaginationHelper } from '../../../helpers/paginationHelper';
 import { userSearchableFields } from './user.constants';
 import ApiError from '../../../errors/apiError';
 import httpStatus from 'http-status';
+import { connect } from 'http2';
 
 // create admin
 const createAdmin = async (req: Request): Promise<Admin | null> => {
 
+    const file = req.file as IFile;
+    if (file) {
+        const uploadToCloudinary = await fileUploader.uploadToCloudinary(file);
+        req.body.admin.profileImage = uploadToCloudinary?.secure_url;
+    }
+
     return await prisma.$transaction(async (transactionClient) => {
         const userId = await generateAdminId();
-
-        const file = req.file as IFile;
 
         const hashPassword = await bcrypt.hash(req.body.password, 12);
 
@@ -30,11 +35,6 @@ const createAdmin = async (req: Request): Promise<Admin | null> => {
                 password: hashPassword
             }
         });
-
-        if (file) {
-            const uploadToCloudinary = await fileUploader.uploadToCloudinary(file);
-            req.body.admin.profileImage = uploadToCloudinary?.secure_url;
-        }
 
         const createdAdmin = await transactionClient.admin.create({
             data: {
@@ -48,9 +48,104 @@ const createAdmin = async (req: Request): Promise<Admin | null> => {
 };
 
 const createStudent = async (req: Request): Promise<Student | null> => {
+    const file = req.file as IFile;
+    if (file) {
+        const uploadToCloudinary = await fileUploader.uploadToCloudinary(file);
+        req.body.student.profileImage = uploadToCloudinary?.secure_url;
+    }
 
-    // 
-    return null;
+    const { academicSemesterId, academicDepartmentId, academicFacultyId } = req.body.student;
+
+    const academicSemester = await prisma.academicSemester.findUniqueOrThrow({
+        where: {
+            id: academicSemesterId
+        }
+    });
+
+    const academicDepartment = await prisma.academicDepartment.findUniqueOrThrow({
+        where: {
+            id: academicDepartmentId
+        }
+    });
+
+    const academicFaculty = await prisma.academicFaculty.findUniqueOrThrow({
+        where: {
+            id: academicFacultyId
+        }
+    });
+
+    return await prisma.$transaction(async (transactionClient) => {
+        const userId = await generateStudentId(academicSemester);
+
+        const hashPassword = await bcrypt.hash(req.body.password, 12);
+
+        console.log(req.body.student)
+
+        const userdata = await transactionClient.user.create({
+            data: {
+                userId,
+                password: hashPassword
+            }
+        });
+
+
+        const createdStudent = await transactionClient.student.create({
+            data: {
+                ...req.body.student,
+                userId
+            }
+        });
+
+        return createdStudent;
+    });
+};
+
+const createFaculty = async (req: Request): Promise<Faculty | null> => {
+    const file = req.file as IFile;
+    if (file) {
+        const uploadToCloudinary = await fileUploader.uploadToCloudinary(file);
+        req.body.faculty.profileImage = uploadToCloudinary?.secure_url;
+    }
+
+    const { academicDepartmentId, academicFacultyId } = req.body.faculty;
+
+    const academicDepartment = await prisma.academicDepartment.findUniqueOrThrow({
+        where: {
+            id: academicDepartmentId
+        }
+    });
+
+    const academicFaculty = await prisma.academicFaculty.findUniqueOrThrow({
+        where: {
+            id: academicFacultyId
+        }
+    });
+
+    return await prisma.$transaction(async (transactionClient) => {
+        const userId = await generateFacultyId();
+
+        const hashPassword = await bcrypt.hash(req.body.password, 12);
+
+        console.log(req.body.faculty)
+
+        const userdata = await transactionClient.user.create({
+            data: {
+                userId,
+                role: UserRole.FACULTY,
+                password: hashPassword
+            }
+        });
+
+
+        const createdFaculty = await transactionClient.faculty.create({
+            data: {
+                ...req.body.faculty,
+                userId
+            }
+        });
+
+        return createdFaculty;
+    });
 };
 
 const getAllFromDB = async (
@@ -221,6 +316,7 @@ const getMyProfile = async (id: string): Promise<Student | Admin | Faculty | nul
 export const UserService = {
     createAdmin,
     createStudent,
+    createFaculty,
     getAllFromDB,
     getByIdFromDB,
     updateOneInDB,
