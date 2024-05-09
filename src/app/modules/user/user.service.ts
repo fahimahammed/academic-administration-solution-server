@@ -16,10 +16,14 @@ import httpStatus from 'http-status';
 // create admin
 const createAdmin = async (req: Request): Promise<Admin | null> => {
 
+    const file = req.file as IFile;
+    if (file) {
+        const uploadToCloudinary = await fileUploader.uploadToCloudinary(file);
+        req.body.admin.profileImage = uploadToCloudinary?.secure_url;
+    }
+
     return await prisma.$transaction(async (transactionClient) => {
         const userId = await generateAdminId();
-
-        const file = req.file as IFile;
 
         const hashPassword = await bcrypt.hash(req.body.password, 12);
 
@@ -30,11 +34,6 @@ const createAdmin = async (req: Request): Promise<Admin | null> => {
                 password: hashPassword
             }
         });
-
-        if (file) {
-            const uploadToCloudinary = await fileUploader.uploadToCloudinary(file);
-            req.body.admin.profileImage = uploadToCloudinary?.secure_url;
-        }
 
         const createdAdmin = await transactionClient.admin.create({
             data: {
