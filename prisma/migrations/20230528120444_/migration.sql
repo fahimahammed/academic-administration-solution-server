@@ -1,0 +1,9 @@
+-- AlterTable
+ALTER TABLE "buildings" ALTER COLUMN "createdAt" DROP NOT NULL,
+ALTER COLUMN "updatedAt" DROP NOT NULL,
+ALTER COLUMN "deletedAt" DROP NOT NULL;
+
+-- AlterTable
+ALTER TABLE "sections" ALTER COLUMN "createdAt" DROP NOT NULL,
+ALTER COLUMN "updatedAt" DROP NOT NULL,
+ALTER COLUMN "deletedAt" DROP NOT NULL;

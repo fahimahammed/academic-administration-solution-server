@@ -1,0 +1,508 @@
+{
+    "offeredCourseId": "fdbf8f9b-d8d4-4758-b38f-81f2529ba64b",
+    "maxCapacity": 10,
+    "title": "A",
+    "classSchedules": [
+        {
+            "dayOfWeek": "SUNDAY",
+            "startTime": "11:00",
+            "endTime": "12:00",
+            "roomId": "02b2d20e-1351-431a-912d-36fd78ac5533",
+            "facultyId": "0b7d9b80-9720-4f86-8dd1-8f9351c37be5"
+        },
+        {
+            "dayOfWeek": "TUESDAY",
+            "startTime": "11:00",
+            "endTime": "12:00",
+            "roomId": "02b2d20e-1351-431a-912d-36fd78ac5533",
+            "facultyId": "0b7d9b80-9720-4f86-8dd1-8f9351c37be5"
+        }
+    ]
+}
+
+{
+    "offeredCourseId": "fdbf8f9b-d8d4-4758-b38f-81f2529ba64b",
+    "maxCapacity": 10,
+    "title": "B",
+    "classSchedules": [
+        {
+            "dayOfWeek": "MONDAY",
+            "startTime": "11:00",
+            "endTime": "12:00",
+            "roomId": "02b2d20e-1351-431a-912d-36fd78ac5533",
+            "facultyId": "0b7d9b80-9720-4f86-8dd1-8f9351c37be5"
+        },
+        {
+            "dayOfWeek": "WEDNESDAY",
+            "startTime": "11:00",
+            "endTime": "12:00",
+            "roomId": "02b2d20e-1351-431a-912d-36fd78ac5533",
+            "facultyId": "0b7d9b80-9720-4f86-8dd1-8f9351c37be5"
+        }
+    ]
+}
+
+////////////////
+
+{
+    "offeredCourseId": "d678da44-9ae9-462d-b9ed-920abfe47541",
+    "maxCapacity": 10,
+    "title": "A",
+    "classSchedules": [
+        {
+            "dayOfWeek": "SUNDAY",
+            "startTime": "11:00",
+            "endTime": "12:00",
+            "roomId": "0ca53067-2d04-4863-99f2-e1b60e3bc03b",
+            "facultyId": "13b14d1f-26ab-4e4c-b0df-0858afd2af43"
+        },
+        {
+            "dayOfWeek": "TUESDAY",
+            "startTime": "11:00",
+            "endTime": "12:00",
+            "roomId": "0ca53067-2d04-4863-99f2-e1b60e3bc03b",
+            "facultyId": "13b14d1f-26ab-4e4c-b0df-0858afd2af43"
+        }
+    ]
+}
+
+{
+    "offeredCourseId": "d678da44-9ae9-462d-b9ed-920abfe47541",
+    "maxCapacity": 10,
+    "title": "B",
+    "classSchedules": [
+        {
+            "dayOfWeek": "MONDAY",
+            "startTime": "11:00",
+            "endTime": "12:00",
+            "roomId": "0ca53067-2d04-4863-99f2-e1b60e3bc03b",
+            "facultyId": "13b14d1f-26ab-4e4c-b0df-0858afd2af43"
+        },
+        {
+            "dayOfWeek": "WEDNESDAY",
+            "startTime": "11:00",
+            "endTime": "12:00",
+            "roomId": "0ca53067-2d04-4863-99f2-e1b60e3bc03b",
+            "facultyId": "13b14d1f-26ab-4e4c-b0df-0858afd2af43"
+        }
+    ]
+}
+
+//////////////////
+
+{
+    "offeredCourseId": "6402b8a8-bfe1-4670-aa8b-976ed2da33c3",
+    "maxCapacity": 10,
+    "title": "A",
+    "classSchedules": [
+        {
+            "dayOfWeek": "SUNDAY",
+            "startTime": "12:00",
+            "endTime": "13:00",
+            "roomId": "0ca53067-2d04-4863-99f2-e1b60e3bc03b",
+            "facultyId": "13b14d1f-26ab-4e4c-b0df-0858afd2af43"
+        },
+        {
+            "dayOfWeek": "TUESDAY",
+            "startTime": "12:00",
+            "endTime": "13:00",
+            "roomId": "0ca53067-2d04-4863-99f2-e1b60e3bc03b",
+            "facultyId": "13b14d1f-26ab-4e4c-b0df-0858afd2af43"
+        }
+    ]
+}
+
+{
+    "offeredCourseId": "6402b8a8-bfe1-4670-aa8b-976ed2da33c3",
+    "maxCapacity": 10,
+    "title": "B",
+    "classSchedules": [
+        {
+            "dayOfWeek": "MONDAY",
+            "startTime": "12:00",
+            "endTime": "13:00",
+            "roomId": "0ca53067-2d04-4863-99f2-e1b60e3bc03b",
+            "facultyId": "13b14d1f-26ab-4e4c-b0df-0858afd2af43"
+        },
+        {
+            "dayOfWeek": "WEDNESDAY",
+            "startTime": "12:00",
+            "endTime": "13:00",
+            "roomId": "0ca53067-2d04-4863-99f2-e1b60e3bc03b",
+            "facultyId": "13b14d1f-26ab-4e4c-b0df-0858afd2af43"
+        }
+    ]
+}
+
+
+//////////////
+
+{
+    "offeredCourseId": "127393a6-ae62-410f-beb4-50a61044b083",
+    "maxCapacity": 10,
+    "title": "A",
+    "classSchedules": [
+        {
+            "dayOfWeek": "SUNDAY",
+            "startTime": "13:00",
+            "endTime": "14:00",
+            "roomId": "0ca53067-2d04-4863-99f2-e1b60e3bc03b",
+            "facultyId": "13b14d1f-26ab-4e4c-b0df-0858afd2af43"
+        },
+        {
+            "dayOfWeek": "TUESDAY",
+            "startTime": "13:00",
+            "endTime": "14:00",
+            "roomId": "0ca53067-2d04-4863-99f2-e1b60e3bc03b",
+            "facultyId": "13b14d1f-26ab-4e4c-b0df-0858afd2af43"
+        }
+    ]
+}
+
+{
+    "offeredCourseId": "127393a6-ae62-410f-beb4-50a61044b083",
+    "maxCapacity": 10,
+    "title": "B",
+    "classSchedules": [
+        {
+            "dayOfWeek": "MONDAY",
+            "startTime": "13:00",
+            "endTime": "14:00",
+            "roomId": "0ca53067-2d04-4863-99f2-e1b60e3bc03b",
+            "facultyId": "13b14d1f-26ab-4e4c-b0df-0858afd2af43"
+        },
+        {
+            "dayOfWeek": "WEDNESDAY",
+            "startTime": "13:00",
+            "endTime": "14:00",
+            "roomId": "0ca53067-2d04-4863-99f2-e1b60e3bc03b",
+            "facultyId": "13b14d1f-26ab-4e4c-b0df-0858afd2af43"
+        }
+    ]
+}
+
+
+///////////////
+
+
+{
+    "offeredCourseId": "9ba8b032-fae2-4b96-a044-82615720ee33",
+    "maxCapacity": 10,
+    "title": "A",
+    "classSchedules": [
+        {
+            "dayOfWeek": "SUNDAY",
+            "startTime": "14:00",
+            "endTime": "15:00",
+            "roomId": "0ca53067-2d04-4863-99f2-e1b60e3bc03b",
+            "facultyId": "13b14d1f-26ab-4e4c-b0df-0858afd2af43"
+        },
+        {
+            "dayOfWeek": "TUESDAY",
+            "startTime": "14:00",
+            "endTime": "15:00",
+            "roomId": "0ca53067-2d04-4863-99f2-e1b60e3bc03b",
+            "facultyId": "13b14d1f-26ab-4e4c-b0df-0858afd2af43"
+        }
+    ]
+}
+
+{
+    "offeredCourseId": "9ba8b032-fae2-4b96-a044-82615720ee33",
+    "maxCapacity": 10,
+    "title": "B",
+    "classSchedules": [
+        {
+            "dayOfWeek": "MONDAY",
+            "startTime": "14:00",
+            "endTime": "15:00",
+            "roomId": "0ca53067-2d04-4863-99f2-e1b60e3bc03b",
+            "facultyId": "13b14d1f-26ab-4e4c-b0df-0858afd2af43"
+        },
+        {
+            "dayOfWeek": "WEDNESDAY",
+            "startTime": "14:00",
+            "endTime": "15:00",
+            "roomId": "0ca53067-2d04-4863-99f2-e1b60e3bc03b",
+            "facultyId": "13b14d1f-26ab-4e4c-b0df-0858afd2af43"
+        }
+    ]
+}
+
+/////////////////////
+
+{
+    "offeredCourseId": "bf208c4e-50ff-4b57-8be2-20c8ba6d3bda",
+    "maxCapacity": 10,
+    "title": "A",
+    "classSchedules": [
+        {
+            "dayOfWeek": "SUNDAY",
+            "startTime": "10:00",
+            "endTime": "11:00",
+            "roomId": "a2fce258-d4b2-42bd-bc28-7370c13a4301",
+            "facultyId": "567e230f-7148-4f39-afae-a047395aa19c"
+        },
+        {
+            "dayOfWeek": "TUESDAY",
+            "startTime": "10:00",
+            "endTime": "11:00",
+            "roomId": "a2fce258-d4b2-42bd-bc28-7370c13a4301",
+            "facultyId": "567e230f-7148-4f39-afae-a047395aa19c"
+        }
+    ]
+}
+
+{
+    "offeredCourseId": "bf208c4e-50ff-4b57-8be2-20c8ba6d3bda",
+    "maxCapacity": 10,
+    "title": "B",
+    "classSchedules": [
+        {
+            "dayOfWeek": "MONDAY",
+            "startTime": "10:00",
+            "endTime": "11:00",
+            "roomId": "a2fce258-d4b2-42bd-bc28-7370c13a4301",
+            "facultyId": "567e230f-7148-4f39-afae-a047395aa19c"
+        },
+        {
+            "dayOfWeek": "WEDNESDAY",
+            "startTime": "10:00",
+            "endTime": "11:00",
+            "roomId": "a2fce258-d4b2-42bd-bc28-7370c13a4301",
+            "facultyId": "567e230f-7148-4f39-afae-a047395aa19c"
+        }
+    ]
+}
+
+
+//////
+
+{
+    "offeredCourseId": "90b70fd1-14eb-4915-9333-b0fca627a09e",
+    "maxCapacity": 10,
+    "title": "A",
+    "classSchedules": [
+        {
+            "dayOfWeek": "SUNDAY",
+            "startTime": "11:00",
+            "endTime": "12:00",
+            "roomId": "a2fce258-d4b2-42bd-bc28-7370c13a4301",
+            "facultyId": "567e230f-7148-4f39-afae-a047395aa19c"
+        },
+        {
+            "dayOfWeek": "TUESDAY",
+            "startTime": "11:00",
+            "endTime": "12:00",
+            "roomId": "a2fce258-d4b2-42bd-bc28-7370c13a4301",
+            "facultyId": "567e230f-7148-4f39-afae-a047395aa19c"
+        }
+    ]
+}
+
+{
+    "offeredCourseId": "90b70fd1-14eb-4915-9333-b0fca627a09e",
+    "maxCapacity": 10,
+    "title": "B",
+    "classSchedules": [
+        {
+            "dayOfWeek": "MONDAY",
+            "startTime": "11:00",
+            "endTime": "12:00",
+            "roomId": "a2fce258-d4b2-42bd-bc28-7370c13a4301",
+            "facultyId": "567e230f-7148-4f39-afae-a047395aa19c"
+        },
+        {
+            "dayOfWeek": "WEDNESDAY",
+            "startTime": "11:00",
+            "endTime": "12:00",
+            "roomId": "a2fce258-d4b2-42bd-bc28-7370c13a4301",
+            "facultyId": "567e230f-7148-4f39-afae-a047395aa19c"
+        }
+    ]
+}
+
+//////
+
+{
+    "offeredCourseId": "0d6f5c49-4cea-407c-80b1-5e8db5ff51f1",
+    "maxCapacity": 10,
+    "title": "A",
+    "classSchedules": [
+        {
+            "dayOfWeek": "SUNDAY",
+            "startTime": "12:00",
+            "endTime": "13:00",
+            "roomId": "a2fce258-d4b2-42bd-bc28-7370c13a4301",
+            "facultyId": "567e230f-7148-4f39-afae-a047395aa19c"
+        },
+        {
+            "dayOfWeek": "TUESDAY",
+            "startTime": "12:00",
+            "endTime": "13:00",
+            "roomId": "a2fce258-d4b2-42bd-bc28-7370c13a4301",
+            "facultyId": "567e230f-7148-4f39-afae-a047395aa19c"
+        }
+    ]
+}
+
+{
+    "offeredCourseId": "0d6f5c49-4cea-407c-80b1-5e8db5ff51f1",
+    "maxCapacity": 10,
+    "title": "B",
+    "classSchedules": [
+        {
+            "dayOfWeek": "MONDAY",
+            "startTime": "12:00",
+            "endTime": "13:00",
+            "roomId": "a2fce258-d4b2-42bd-bc28-7370c13a4301",
+            "facultyId": "567e230f-7148-4f39-afae-a047395aa19c"
+        },
+        {
+            "dayOfWeek": "WEDNESDAY",
+            "startTime": "12:00",
+            "endTime": "13:00",
+            "roomId": "a2fce258-d4b2-42bd-bc28-7370c13a4301",
+            "facultyId": "567e230f-7148-4f39-afae-a047395aa19c"
+        }
+    ]
+}
+
+//////////
+
+{
+    "offeredCourseId": "1dc981aa-f541-4713-8305-e17887f24aea",
+    "maxCapacity": 10,
+    "title": "A",
+    "classSchedules": [
+        {
+            "dayOfWeek": "SUNDAY",
+            "startTime": "13:00",
+            "endTime": "14:00",
+            "roomId": "a2fce258-d4b2-42bd-bc28-7370c13a4301",
+            "facultyId": "567e230f-7148-4f39-afae-a047395aa19c"
+        },
+        {
+            "dayOfWeek": "TUESDAY",
+            "startTime": "13:00",
+            "endTime": "14:00",
+            "roomId": "a2fce258-d4b2-42bd-bc28-7370c13a4301",
+            "facultyId": "567e230f-7148-4f39-afae-a047395aa19c"
+        }
+    ]
+}
+
+{
+    "offeredCourseId": "1dc981aa-f541-4713-8305-e17887f24aea",
+    "maxCapacity": 10,
+    "title": "B",
+    "classSchedules": [
+        {
+            "dayOfWeek": "MONDAY",
+            "startTime": "13:00",
+            "endTime": "14:00",
+            "roomId": "a2fce258-d4b2-42bd-bc28-7370c13a4301",
+            "facultyId": "567e230f-7148-4f39-afae-a047395aa19c"
+        },
+        {
+            "dayOfWeek": "WEDNESDAY",
+            "startTime": "13:00",
+            "endTime": "14:00",
+            "roomId": "a2fce258-d4b2-42bd-bc28-7370c13a4301",
+            "facultyId": "567e230f-7148-4f39-afae-a047395aa19c"
+        }
+    ]
+}
+
+/////////////
+
+{
+    "offeredCourseId": "003eaa68-35e6-41c5-b174-8c6420d7da05",
+    "maxCapacity": 10,
+    "title": "A",
+    "classSchedules": [
+        {
+            "dayOfWeek": "SUNDAY",
+            "startTime": "14:00",
+            "endTime": "15:00",
+            "roomId": "a2fce258-d4b2-42bd-bc28-7370c13a4301",
+            "facultyId": "567e230f-7148-4f39-afae-a047395aa19c"
+        },
+        {
+            "dayOfWeek": "TUESDAY",
+            "startTime": "14:00",
+            "endTime": "15:00",
+            "roomId": "a2fce258-d4b2-42bd-bc28-7370c13a4301",
+            "facultyId": "567e230f-7148-4f39-afae-a047395aa19c"
+        }
+    ]
+}
+
+{
+    "offeredCourseId": "003eaa68-35e6-41c5-b174-8c6420d7da05",
+    "maxCapacity": 10,
+    "title": "B",
+    "classSchedules": [
+        {
+            "dayOfWeek": "MONDAY",
+            "startTime": "14:00",
+            "endTime": "15:00",
+            "roomId": "a2fce258-d4b2-42bd-bc28-7370c13a4301",
+            "facultyId": "567e230f-7148-4f39-afae-a047395aa19c"
+        },
+        {
+            "dayOfWeek": "WEDNESDAY",
+            "startTime": "14:00",
+            "endTime": "15:00",
+            "roomId": "a2fce258-d4b2-42bd-bc28-7370c13a4301",
+            "facultyId": "567e230f-7148-4f39-afae-a047395aa19c"
+        }
+    ]
+}
+
+//////////////////
+
+{
+    "offeredCourseId": "d1a30119-bb14-4196-bc5e-aa389b9f4d36",
+    "maxCapacity": 10,
+    "title": "A",
+    "classSchedules": [
+        {
+            "dayOfWeek": "SUNDAY",
+            "startTime": "15:00",
+            "endTime": "16:00",
+            "roomId": "a2fce258-d4b2-42bd-bc28-7370c13a4301",
+            "facultyId": "567e230f-7148-4f39-afae-a047395aa19c"
+        },
+        {
+            "dayOfWeek": "TUESDAY",
+            "startTime": "15:00",
+            "endTime": "16:00",
+            "roomId": "a2fce258-d4b2-42bd-bc28-7370c13a4301",
+            "facultyId": "567e230f-7148-4f39-afae-a047395aa19c"
+        }
+    ]
+}
+
+{
+    "offeredCourseId": "d1a30119-bb14-4196-bc5e-aa389b9f4d36",
+    "maxCapacity": 10,
+    "title": "B",
+    "classSchedules": [
+        {
+            "dayOfWeek": "MONDAY",
+            "startTime": "15:00",
+            "endTime": "16:00",
+            "roomId": "a2fce258-d4b2-42bd-bc28-7370c13a4301",
+            "facultyId": "567e230f-7148-4f39-afae-a047395aa19c"
+        },
+        {
+            "dayOfWeek": "WEDNESDAY",
+            "startTime": "15:00",
+            "endTime": "16:00",
+            "roomId": "a2fce258-d4b2-42bd-bc28-7370c13a4301",
+            "facultyId": "567e230f-7148-4f39-afae-a047395aa19c"
+        }
+    ]
+}
+
