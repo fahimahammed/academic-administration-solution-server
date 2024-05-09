@@ -12,11 +12,12 @@ model User {
   userId                    String    @unique
   role                      UserRole  @default(STUDENT)
   password                  String
-  needsPasswordChange       Boolean
+  needsPasswordChange       Boolean   @default(true)
   passwordResetToken        String?
   passwordResetTokenExpires DateTime?
   createdAt                 DateTime? @default(now())
   updatedAt                 DateTime? @updatedAt
+  Admin                     Admin?
 
   @@map("users")
 }
@@ -24,6 +25,7 @@ model User {
 model Admin {
   id                 String     @id @default(uuid())
   userId             String     @unique
+  user               User       @relation(fields: [userId], references: [userId])
   firstName          String
   lastName           String
   middleName         String?
@@ -31,14 +33,15 @@ model Admin {
   gender             Gender
   bloodGroup         BloodGroup
   email              String     @unique
-  contactNo          String     @unique
+  contactNo          String
   emergencyContactNo String
   presentAddress     String
   permanentAddress   String
   designation        String
   profileImage       String?
-  createdAt          DateTime   @default(now())
-  updatedAt          DateTime   @updatedAt
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@map("admins")
 }

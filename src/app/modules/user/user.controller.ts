@@ -6,9 +6,7 @@ import { UserService } from './user.service';
 
 const createAdmin = async (req: Request, res: Response, next: NextFunction) => {
     try {
-        const { admin: adminData, ...userData } = req.body;
-        userData.role = 'admin';
-        const result = await UserService.createAdmin(userData, adminData);
+        const result = await UserService.createAdmin(req);
         sendResponse(res, {
             statusCode: httpStatus.OK,
             success: true,

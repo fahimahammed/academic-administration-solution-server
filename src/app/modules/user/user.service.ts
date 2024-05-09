@@ -1,22 +1,48 @@
 import * as bcrypt from 'bcryptjs';
 import config from '../../../config';
-import { Admin, User } from '@prisma/client';
+import { Admin, User, UserRole } from '@prisma/client';
 import prisma from '../../../shared/prisma';
 import { generateAdminId } from './user.utils';
+import { Request } from 'express';
+import { IFile } from '../../../interfaces/file';
+import { fileUploader } from '../../../helpers/fileUploader';
 
 // create admin
-const createAdmin = async (user: User, admin: Admin): Promise<User | null> => {
-    if (!user.password) {
-        user.password = config.userDefaultPassword;
-    }
+const createAdmin = async (req: Request): Promise<Admin | null> => {
+    console.log(req.body)
+    // if (!req.body.password) {
+    //     user.password = config.userDefaultPassword;
+    // }
 
-    let newUser = null;
+    return await prisma.$transaction(async (transactionClient) => {
+        const userId = await generateAdminId();
 
-    const result = await prisma.$transaction(async (transactionClient) => {
-        const id = await generateAdminId();
-    })
+        const file = req.file as IFile;
 
-    return newUser;
+        const hashPassword = await bcrypt.hash(req.body.password, 12);
+
+        await transactionClient.user.create({
+            data: {
+                userId,
+                role: UserRole.ADMIN,
+                password: hashPassword
+            }
+        });
+
+        if (file) {
+            const uploadToCloudinary = await fileUploader.uploadToCloudinary(file);
+            req.body.admin.profileImage = uploadToCloudinary?.secure_url;
+        }
+
+        const createdAdmin = await transactionClient.admin.create({
+            data: {
+                ...req.body.admin,
+                userId
+            }
+        });
+
+        return createdAdmin;
+    });
 };
 
 export const UserService = {

@@ -10,8 +10,7 @@ export const findLastAdminId = async () => {
             userId: true
         }
     });
-
-    return lastAdmin?.userId;
+    return lastAdmin?.userId ? lastAdmin?.userId.substring(2) : null;
 }
 
 export const generateAdminId = async () => {
