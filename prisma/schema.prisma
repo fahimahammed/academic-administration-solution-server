@@ -8,15 +8,16 @@ datasource db {
 }
 
 model User {
-  id                        String    @id @default(uuid())
-  userId                    String    @unique
-  role                      UserRole  @default(STUDENT)
+  id                        String     @id @default(uuid())
+  userId                    String     @unique
+  role                      UserRole   @default(STUDENT)
   password                  String
-  needsPasswordChange       Boolean   @default(true)
+  needsPasswordChange       Boolean    @default(true)
   passwordResetToken        String?
   passwordResetTokenExpires DateTime?
-  createdAt                 DateTime? @default(now())
-  updatedAt                 DateTime? @updatedAt
+  status                    UserStatus @default(ACTIVE)
+  createdAt                 DateTime?  @default(now())
+  updatedAt                 DateTime?  @updatedAt
   Admin                     Admin?
 
   @@map("users")
@@ -39,6 +40,7 @@ model Admin {
   permanentAddress   String
   designation        String
   profileImage       String?
+  isDeleted          Boolean    @default(false)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -171,6 +173,7 @@ model Student {
   contactNo    String
   gender       Gender
   bloodGroup   BloodGroup
+  isDeleted    Boolean    @default(false)
 
   createdAt DateTime? @default(now())
   updatedAt DateTime? @updatedAt
@@ -481,6 +484,12 @@ enum Gender {
   MALE
   FEMALE
   OTHERS
+}
+
+enum UserStatus {
+  ACTIVE
+  INACTIVE
+  DELETED
 }
 
 enum BloodGroup {

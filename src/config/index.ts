@@ -13,8 +13,12 @@ const envVarsZodSchema = z.object({
   DATABASE_URL: z.string(),
   REDIS_URL: z.string(),
   JWT_SECRET: z.string(),
+  JWT_EXPIRES_IN: z.string(),
+  JWT_REFRESH_SECRET: z.string(),
+  JWT_REFRESH_EXPIRES_IN: z.string(),
+  PASS_RESET_TOKEN_EXPIRES_IN: z.string(),
   INIT_PAYMENT_ENDPOINT: z.string(),
-  USER_DEFAULT_PASS: z.string()
+  USER_DEFAULT_PASS: z.string(),
 });
 
 const envVars = envVarsZodSchema.parse(process.env);
@@ -27,7 +31,11 @@ export default {
     url: envVars.DATABASE_URL
   },
   jwt: {
-    secret: envVars.JWT_SECRET
+    secret: envVars.JWT_SECRET,
+    expirationTime: envVars.JWT_EXPIRES_IN,
+    refreshSecret: envVars.JWT_REFRESH_SECRET,
+    refreshExpirationTime: envVars.JWT_REFRESH_EXPIRES_IN,
+    passwordResetTokenExpirationTime: envVars.PASS_RESET_TOKEN_EXPIRES_IN
   },
   paymentService: {
     initPaymentEndpoint: envVars.INIT_PAYMENT_ENDPOINT
