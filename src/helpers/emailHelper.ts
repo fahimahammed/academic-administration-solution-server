@@ -31,8 +31,6 @@ const sendEmail = async (
         //text: "Hello world?", // plain text body
         html, // html body
     });
-
-    //console.log("Message sent: %s", info.messageId);
 }
 
 const createEmailContent = async (data: object, templateType: string) => {

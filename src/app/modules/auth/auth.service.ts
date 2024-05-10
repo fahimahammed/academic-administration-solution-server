@@ -155,7 +155,6 @@ const forgotPassword = async (payload: { userId: string }) => {
     const passwordResetToken = await JwtHelper.createPasswordResetToken({
         id: userData.userId
     });
-    //console.log(resetPassToken)
 
     const passwordResetLink = `${config.forgotPasswordResetUiLink}id=${userData.userId}&token=${passwordResetToken}`;
 

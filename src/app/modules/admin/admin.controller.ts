@@ -25,7 +25,6 @@ const getAllFromDB = async (req: Request, res: Response, next: NextFunction) => 
 const getByIdFromDB = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const { id } = req.params;
-    console.log("id: ", id)
     const result = await AdminService.getByIdFromDB(id);
     sendResponse(res, {
       statusCode: httpStatus.OK,

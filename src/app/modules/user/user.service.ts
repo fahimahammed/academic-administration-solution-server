@@ -26,8 +26,6 @@ const createAdmin = async (req: Request): Promise<Admin | null> => {
     return await prisma.$transaction(async (transactionClient) => {
         const userId = await generateAdminId();
 
-        console.log(userId)
-
         const hashPassword = await bcrypt.hash(req.body.password, 12);
 
         await transactionClient.user.create({
@@ -88,8 +86,6 @@ const createStudent = async (req: Request): Promise<Student | null> => {
 
         const hashPassword = await bcrypt.hash(req.body.password, 12);
 
-        console.log(req.body.student)
-
         const userdata = await transactionClient.user.create({
             data: {
                 userId,
@@ -141,8 +137,6 @@ const createFaculty = async (req: Request): Promise<Faculty | null> => {
         const userId = await generateFacultyId();
 
         const hashPassword = await bcrypt.hash(req.body.password, 12);
-
-        console.log(req.body.faculty)
 
         const userdata = await transactionClient.user.create({
             data: {
@@ -265,7 +259,7 @@ const updateOneInDB = async (id: string, payload: Partial<User>): Promise<Partia
 };
 
 const deleteByIdFromDB = async (id: string): Promise<User | null> => {
-    console.log("user id: ", id);
+
     const result = await prisma.user.findUnique({
         where: {
             userId: id
@@ -348,8 +342,6 @@ const getMyProfile = async (id: string): Promise<Student | Admin | Faculty | nul
     if (!profile) {
         throw new ApiError(httpStatus.NOT_FOUND, 'Profile not found');
     }
-
-    console.log(profile)
     return profile;
 };
 
