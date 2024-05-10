@@ -19,6 +19,9 @@ const envVarsZodSchema = z.object({
   PASS_RESET_TOKEN_EXPIRES_IN: z.string(),
   INIT_PAYMENT_ENDPOINT: z.string(),
   USER_DEFAULT_PASS: z.string(),
+  CLOUD_NAME: z.string(),
+  API_KEY: z.string(),
+  API_SECRET: z.string()
 });
 
 const envVars = envVarsZodSchema.parse(process.env);
@@ -36,6 +39,11 @@ export default {
     refreshSecret: envVars.JWT_REFRESH_SECRET,
     refreshExpirationTime: envVars.JWT_REFRESH_EXPIRES_IN,
     passwordResetTokenExpirationTime: envVars.PASS_RESET_TOKEN_EXPIRES_IN
+  },
+  cloudinary: {
+    cloudName: envVars.CLOUD_NAME,
+    apiKey: envVars.API_KEY,
+    apiSecret: envVars.API_SECRET
   },
   paymentService: {
     initPaymentEndpoint: envVars.INIT_PAYMENT_ENDPOINT
