@@ -4,6 +4,7 @@ import validateRequest from '../../../shared/validateRequest';
 import auth from '../../middlewares/auth';
 import { OfferedCourseSectionController } from './offeredCourseSection.controller';
 import { OfferedCourseSectionValidation } from './offeredCourseSection.validations';
+import { UserRole } from '@prisma/client';
 
 const router = express.Router();
 
@@ -13,20 +14,20 @@ router.get('/:id', OfferedCourseSectionController.getByIdFromDB);
 router.post(
   '/',
   validateRequest(OfferedCourseSectionValidation.create),
-  auth(ENUM_USER_ROLE.SUPER_ADMIN, ENUM_USER_ROLE.ADMIN),
+  auth(UserRole.SUPER_ADMIN, UserRole.ADMIN),
   OfferedCourseSectionController.insertIntoDB
 );
 
 router.patch(
   '/:id',
   validateRequest(OfferedCourseSectionValidation.update),
-  auth(ENUM_USER_ROLE.SUPER_ADMIN, ENUM_USER_ROLE.ADMIN),
+  auth(UserRole.SUPER_ADMIN, UserRole.ADMIN),
   OfferedCourseSectionController.updateOneInDB
 );
 
 router.delete(
   '/:id',
-  auth(ENUM_USER_ROLE.SUPER_ADMIN, ENUM_USER_ROLE.ADMIN),
+  auth(UserRole.SUPER_ADMIN, UserRole.ADMIN),
   OfferedCourseSectionController.deleteByIdFromDB
 );
 

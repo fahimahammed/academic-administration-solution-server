@@ -4,34 +4,36 @@ import auth from '../../middlewares/auth';
 import { StudentSemesterPaymentController } from './studentSemesterPayment.controller';
 import validateRequest from '../../../shared/validateRequest';
 import { StudentSemesterPaymentValidation } from './studentSemesterPayment.validations';
+import { UserRole } from '@prisma/client';
 
 const router = express.Router();
 
 router.get(
   '/',
-  auth(ENUM_USER_ROLE.ADMIN, ENUM_USER_ROLE.FACULTY),
+  auth(UserRole.ADMIN, UserRole.FACULTY),
   StudentSemesterPaymentController.getAllFromDB
 );
 
 router.get(
   '/my-semester-payments',
-  auth(ENUM_USER_ROLE.STUDENT),
+  auth(UserRole.STUDENT),
   StudentSemesterPaymentController.getMySemesterPayments
+);
+
+router.get(
+  '/complete-payment',
+  // auth(ENUM_USER_ROLE.STUDENT),
+  //validateRequest(StudentSemesterPaymentValidation.completePayment),
+  StudentSemesterPaymentController.completePayment
 );
 
 router.post(
   '/initiate-payment',
-  auth(ENUM_USER_ROLE.STUDENT),
+  auth(UserRole.STUDENT),
   validateRequest(StudentSemesterPaymentValidation.initiatePayment),
   StudentSemesterPaymentController.initiatePayment
 );
 
-router.post(
-  '/complete-payment',
-  // auth(ENUM_USER_ROLE.STUDENT),
-  validateRequest(StudentSemesterPaymentValidation.completePayment),
-  StudentSemesterPaymentController.completePayment
-);
 
 // router.post(
 //   '/update-course-final-marks',

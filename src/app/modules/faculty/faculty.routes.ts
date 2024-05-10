@@ -17,6 +17,7 @@ router.get(
 );
 
 router.get('/profile/:id', FacultyController.getByIdFromDB);
+router.get('/:id', FacultyController.getByIdFromDB);
 
 router.post(
   '/:id/assign-courses',

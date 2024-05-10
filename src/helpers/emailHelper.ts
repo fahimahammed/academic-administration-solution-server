@@ -1,81 +1,54 @@
-// import * as fs from 'fs';
-// import * as path from 'path';
-// import config from '../config';
-// import { IEmailOptions } from '../interfaces/email.interfaces';
-// import logger from '../shared/logger';
-// const MailComposer = require('nodemailer/lib/mail-composer');
-// const { google } = require('googleapis');
-// const Util = require('util');
-// const ReadFile = Util.promisify(fs.readFile);
-// const Handlebars = require('handlebars');
+import * as fs from 'fs';
+import * as path from 'path';
+const Util = require('util');
+const ReadFile = Util.promisify(fs.readFile);
+const Handlebars = require('handlebars');
+import nodemailer from 'nodemailer'
+import config from '../config';
 
-// const getGmailService = () => {
-//   const { clientId, clientSecret } = config.mail.gmail;
-//   const oAuth2Client = new google.auth.OAuth2(clientId, clientSecret);
-//   oAuth2Client.setCredentials(config.mail.gmail.tokens);
-//   const gmail = google.gmail({ version: 'v1', auth: oAuth2Client });
-//   return gmail;
-// };
+const sendEmail = async (
+    email: string,
+    html: string
+) => {
+    const transporter = nodemailer.createTransport({
+        host: "smtp.gmail.com",
+        port: 587,
+        secure: false, // Use `true` for port 465, `false` for all other ports
+        auth: {
+            user: config.emailSender.email,
+            pass: config.emailSender.appPass,
+        },
+        tls: {
+            rejectUnauthorized: false
+        }
+    });
 
-// const encodeMessage = (message: string) => {
-//   return Buffer.from(message)
-//     .toString('base64')
-//     .replace(/\+/g, '-')
-//     .replace(/\//g, '_')
-//     .replace(/=+$/, '');
-// };
+    const info = await transporter.sendMail({
+        from: '"Academic Administration Solution" <fahimfiroz.ph@gmail.com>', // sender address
+        to: email, // list of receivers
+        subject: "Reset Password Link", // Subject line
+        //text: "Hello world?", // plain text body
+        html, // html body
+    });
 
-// const createMail = async (options: IEmailOptions) => {
-//   const mailComposer = new MailComposer(options);
-//   const message = await mailComposer.compile().build();
-//   return encodeMessage(message);
-// };
+    //console.log("Message sent: %s", info.messageId);
+}
 
-// const sendEmail = async (options: IEmailOptions) => {
-//   try {
-//     const mailOptions: IEmailOptions = {
-//       to: options.to,
-//       cc: options.cc,
-//       replyTo: options.replyTo || 'zahid-hasan@programming-hero.com',
-//       subject: options.subject,
-//       text: options.text,
-//       html: options.html,
-//       attachments: options.attachments,
-//       textEncoding: options.textEncoding || 'base64',
-//       headers: options.headers || [
-//         { key: 'X-Application-Developer', value: 'Zahid Hasan' },
-//         { key: 'X-Application-Version', value: 'v1.0.0.2' }
-//       ]
-//     };
-//     const gmail = getGmailService();
-//     const rawMessage = await createMail(mailOptions);
-//     const data = await gmail.users.messages.send({
-//       userId: 'me',
-//       resource: {
-//         raw: rawMessage
-//       }
-//     });
-//     return data;
-//   } catch (error) {
-//     logger.error(error);
-//   }
-// };
+const createEmailContent = async (data: object, templateType: string) => {
+    try {
+        const templatePath = path.join(
+            process.cwd(),
+            `views/email-templates/${templateType}.template.hbs`
+        );
+        const content = await ReadFile(templatePath, 'utf8');
 
-// const createEmailContent = async (data: object, templateType: string) => {
-//   try {
-//     const templatePath = path.join(
-//       process.cwd(),
-//       `views/email-templates/${templateType}.template.hbs`
-//     );
-//     const content = await ReadFile(templatePath, 'utf8');
+        const template = Handlebars.compile(content);
 
-//     const template = Handlebars.compile(content);
+        return template(data);
+    } catch (error) { }
+};
 
-//     return template(data);
-//   } catch (error) {}
-// };
-
-// export const EmailHelper = {
-//   sendEmail,
-//   createEmailContent
-// };
+export const EmailHelper = {
+    sendEmail,
+    createEmailContent
+};

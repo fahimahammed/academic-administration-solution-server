@@ -280,7 +280,6 @@ model SemesterRegistration {
 
   studentSemesterRegistrationCourses StudentSemesterRegistrationCourse[]
   offeredCourseSections              OfferedCourseSection[]
-  offeredCourseClassSchedules        OfferedCourseClassSchedule[]
 
   @@map("semester_registrations")
 }
@@ -341,9 +340,6 @@ model OfferedCourseClassSchedule {
 
   offeredCourseSection   OfferedCourseSection @relation(fields: [offeredCourseSectionId], references: [id])
   offeredCourseSectionId String
-
-  semesterRegistration   SemesterRegistration @relation(fields: [semesterRegistrationId], references: [id])
-  semesterRegistrationId String
 
   room   Room   @relation(fields: [roomId], references: [id])
   roomId String
@@ -469,7 +465,7 @@ model StudentSemesterPaymentHistory {
   studentSemesterPayment   StudentSemesterPayment @relation(fields: [studentSemesterPaymentId], references: [id])
   studentSemesterPaymentId String
 
-  transactionId String
+  transactionId String         @unique
   dueAmount     Int            @default(0)
   paidAmount    Int            @default(0)
   paymentMethod PaymentMethod? @default(ONLINE)

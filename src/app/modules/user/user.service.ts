@@ -287,6 +287,11 @@ const getMyProfile = async (id: string): Promise<Student | Admin | Faculty | nul
         profile = await prisma.student.findFirst({
             where: {
                 userId: user.userId
+            },
+            include: {
+                academicSemester: true,
+                academicDepartment: true,
+                academicFaculty: true
             }
         })
 
@@ -294,6 +299,10 @@ const getMyProfile = async (id: string): Promise<Student | Admin | Faculty | nul
         profile = await prisma.faculty.findFirst({
             where: {
                 userId: user.userId
+            },
+            include: {
+                academicDepartment: true,
+                academicFaculty: true
             }
         })
 

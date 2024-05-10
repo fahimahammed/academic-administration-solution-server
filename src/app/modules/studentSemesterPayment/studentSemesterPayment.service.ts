@@ -21,18 +21,11 @@ import httpStatus from 'http-status';
 import { PaymentTypes } from '../../../enums/common';
 import axios from 'axios';
 import config from '../../../config';
+import { DefaultArgs } from '@prisma/client/runtime/library';
+import { SslService } from '../ssl/ssl.service';
 
 const createSemesterPayment = async (
-  prismaClient: Omit<
-    PrismaClient<
-      {
-        errorFormat: 'minimal';
-      },
-      never,
-      false
-    >,
-    '$connect' | '$disconnect' | '$on' | '$transaction' | '$use'
-  >,
+  prismaClient: Omit<PrismaClient<Prisma.PrismaClientOptions, never, DefaultArgs>, "$connect" | "$disconnect" | "$on" | "$transaction" | "$use" | "$extends">,
   payload: {
     studentId: string;
     academicSemesterId: string;
@@ -121,8 +114,8 @@ const getAllFromDB = async (
       options.sortBy && options.sortOrder
         ? { [options.sortBy]: options.sortOrder }
         : {
-            createdAt: 'desc'
-          }
+          createdAt: 'desc'
+        }
   });
   const total = await prisma.studentSemesterPayment.count({
     where: whereConditions
@@ -148,7 +141,7 @@ const getMySemesterPayments = async (
 
   const student = await prisma.student.findFirst({
     where: {
-      studentId: authUser.id
+      userId: authUser.id
     }
   });
 
@@ -191,7 +184,7 @@ const getMySemesterPayments = async (
     });
   }
 
-  const whereConditions: Prisma.StudentEnrolledCourseWhereInput =
+  const whereConditions: Prisma.StudentSemesterPaymentWhereInput =
     andConditions.length > 0 ? { AND: andConditions } : {};
 
   const result = await prisma.studentSemesterPayment.findMany({
@@ -206,8 +199,8 @@ const getMySemesterPayments = async (
       options.sortBy && options.sortOrder
         ? { [options.sortBy]: options.sortOrder }
         : {
-            createdAt: 'desc'
-          }
+          createdAt: 'desc'
+        }
   });
   const total = await prisma.studentSemesterPayment.count({
     where: whereConditions
@@ -232,7 +225,7 @@ const initiatePayment = async (
 ): Promise<any> => {
   const student = await prisma.student.findFirst({
     where: {
-      studentId: authUser.id
+      userId: authUser.id
     }
   });
 
@@ -279,18 +272,17 @@ const initiatePayment = async (
   });
 
   if (isPendingPaymentExist) {
-    const paymentResponse = await axios.post(config.paymentService.initPaymentEndpoint, {
+    const paymentResponse = await SslService.initPayment({
       transactionId: isPendingPaymentExist.transactionId,
-      studentId: student.studentId,
       amount: isPendingPaymentExist.dueAmount,
-      studentName: `${student.firstName} ${student.lastName}`,
-      studentEmail: student.email,
-      studentPhoneNumber: student.contactNo
+      customerName: `${student.firstName} ${student.lastName}`,
+      customerEmail: student.email,
+      customerPhoneNumber: student.contactNo
     });
 
     return {
       paymentDetails: isPendingPaymentExist,
-      paymentUrl: paymentResponse.data.data.paymentUrl
+      paymentUrl: paymentResponse.redirectGatewayURL
     };
   }
 
@@ -310,34 +302,32 @@ const initiatePayment = async (
     paidAmount: 0,
     dueAmount: payableAmount,
     paymentMethod: PaymentMethod.ONLINE,
-    transactionId: `${student.studentId}-${
-      studentSemesterPayment.academicSemester.title
-    }-${Date.now()}`
+    transactionId: `${student.userId}-${studentSemesterPayment.academicSemester.title
+      }-${Date.now()}`
   };
 
   const studentSemesterPaymentHistory = await prisma.studentSemesterPaymentHistory.create({
     data: dataToInsert
   });
 
-  const paymentResponse = await axios.post(config.paymentService.initPaymentEndpoint, {
+  const paymentResponse = await SslService.initPayment({
     transactionId: studentSemesterPaymentHistory.transactionId,
-    studentId: student.studentId,
     amount: studentSemesterPaymentHistory.dueAmount,
-    studentName: `${student.firstName} ${student.lastName}`,
-    studentEmail: student.email,
-    studentPhoneNumber: student.contactNo
+    customerName: `${student.firstName} ${student.lastName}`,
+    customerEmail: student.email,
+    customerPhoneNumber: student.contactNo
   });
 
   return {
     paymentDetails: studentSemesterPaymentHistory,
-    paymentUrl: paymentResponse.data.data.paymentUrl
+    paymentUrl: paymentResponse.redirectGatewayURL
   };
 };
 
 const completePayment = async (payload: { transactionId: string }): Promise<any> => {
-  const paymentDetails = await prisma.studentSemesterPaymentHistory.findFirst({
+  const paymentDetails = await prisma.studentSemesterPaymentHistory.findUniqueOrThrow({
     where: {
-      transactionId: payload.transactionId
+      transactionId: payload.transactionId || ""
     }
   });
 

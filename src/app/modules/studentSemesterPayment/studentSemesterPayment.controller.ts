@@ -62,7 +62,9 @@ const initiatePayment = async (req: Request, res: Response, next: NextFunction) 
 
 const completePayment = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const result = await StudentSemesterPaymentService.completePayment(req.body);
+    const { transactionId } = req.query;
+    const result = await StudentSemesterPaymentService.completePayment({ transactionId } as { transactionId: string });
+    //res.redirect("http://localhost:3000/student/payment")
     sendResponse(res, {
       statusCode: httpStatus.OK,
       success: true,

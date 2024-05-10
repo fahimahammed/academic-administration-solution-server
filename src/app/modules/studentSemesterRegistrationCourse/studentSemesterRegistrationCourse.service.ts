@@ -12,7 +12,7 @@ const enrollIntoCourse = async (
 }> => {
   const student = await prisma.student.findFirst({
     where: {
-      studentId: authUserId
+      userId: authUserId
     }
   });
 
@@ -111,7 +111,7 @@ const withdrawFromCourse = async (
 }> => {
   const student = await prisma.student.findFirst({
     where: {
-      studentId: authUserId
+      userId: authUserId
     }
   });
 

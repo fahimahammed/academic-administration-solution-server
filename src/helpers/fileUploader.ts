@@ -3,12 +3,13 @@ import path from "path"
 import fs from 'fs'
 import { v2 as cloudinary } from 'cloudinary';
 import { ICloudinaryResponse, IFile } from "../interfaces/file";
+import config from "../config";
 
 
 cloudinary.config({
-    cloud_name: 'dbgrq28js',
-    api_key: '173484379744282',
-    api_secret: 'eHKsVTxIOLl5oaO_BHxBQWAK3GA'
+    cloud_name: config.cloudinary.cloudName,
+    api_key: config.cloudinary.apiKey,
+    api_secret: config.cloudinary.apiSecret
 });
 
 const storage = multer.diskStorage({

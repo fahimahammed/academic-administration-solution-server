@@ -54,6 +54,8 @@ const getAllFromDB = async (
 
   const andConditions = [];
 
+  console.log(searchTerm)
+
   if (searchTerm) {
     andConditions.push({
       OR: offeredCourseSearchableFields.map((field) => ({
@@ -101,8 +103,8 @@ const getAllFromDB = async (
       options.sortBy && options.sortOrder
         ? { [options.sortBy]: options.sortOrder }
         : {
-            createdAt: 'desc'
-          }
+          createdAt: 'desc'
+        }
   });
   const total = await prisma.offeredCourse.count({
     where: whereConditions

@@ -1,8 +1,8 @@
 <div align="center">
-  <h1>University Management System</h1>
+  <h1>Academic Administration Solution</h1>
 </div>
 <div align="center">
-  <strong>Auth Service</strong>
+  <strong></strong>
 </div>
 
 ## Development

@@ -113,7 +113,7 @@ const deleteByIdFromDB = async (req: Request, res: Response, next: NextFunction)
 const getMyProfile = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const user = (req as any).user;
-        console.log(user)
+        //console.log(user)
         const result = await UserService.getMyProfile(user.id);
         sendResponse(res, {
             statusCode: httpStatus.OK,

@@ -19,6 +19,19 @@ const envVarsZodSchema = z.object({
   PASS_RESET_TOKEN_EXPIRES_IN: z.string(),
   INIT_PAYMENT_ENDPOINT: z.string(),
   USER_DEFAULT_PASS: z.string(),
+  CLOUD_NAME: z.string(),
+  API_KEY: z.string(),
+  API_SECRET: z.string(),
+  FORGOT_PASS_RESET_LINK: z.string(),
+  EMAIL: z.string(),
+  APP_PASS: z.string(),
+  STORE_ID: z.string(),
+  STORE_PASSWORD: z.string(),
+  PAYMENT_API: z.string(),
+  VALIDATION_API: z.string(),
+  SUCCESS_URL: z.string(),
+  CANCEL_URL: z.string(),
+  FAILED_URL: z.string(),
 });
 
 const envVars = envVarsZodSchema.parse(process.env);
@@ -27,6 +40,7 @@ export default {
   env: envVars.NODE_ENV,
   port: envVars.PORT,
   userDefaultPassword: envVars.USER_DEFAULT_PASS,
+  forgotPasswordResetUiLink: envVars.FORGOT_PASS_RESET_LINK,
   db: {
     url: envVars.DATABASE_URL
   },
@@ -37,7 +51,22 @@ export default {
     refreshExpirationTime: envVars.JWT_REFRESH_EXPIRES_IN,
     passwordResetTokenExpirationTime: envVars.PASS_RESET_TOKEN_EXPIRES_IN
   },
-  paymentService: {
-    initPaymentEndpoint: envVars.INIT_PAYMENT_ENDPOINT
+  cloudinary: {
+    cloudName: envVars.CLOUD_NAME,
+    apiKey: envVars.API_KEY,
+    apiSecret: envVars.API_SECRET
+  },
+  emailSender: {
+    email: envVars.EMAIL,
+    appPass: envVars.APP_PASS
+  },
+  ssl: {
+    storeId: envVars.STORE_ID,
+    storePass: envVars.STORE_PASSWORD,
+    paymentApi: envVars.PAYMENT_API,
+    validationApi: envVars.VALIDATION_API,
+    successUrl: envVars.SUCCESS_URL,
+    cancelUrl: envVars.CANCEL_URL,
+    failedUrl: envVars.FAILED_URL
   }
 };

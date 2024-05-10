@@ -24,18 +24,10 @@ import { IAuthUser } from '../../../interfaces/auth';
 import ApiError from '../../../errors/apiError';
 import httpStatus from 'http-status';
 import { StudentEnrolledCourseMarkUtils } from './studentEnrolledCourseMark.utils';
+import { DefaultArgs } from '@prisma/client/runtime/library';
 
 const createStudentEnrolledCourseDefaultMarks = async (
-  prismaClient: Omit<
-    PrismaClient<
-      {
-        errorFormat: 'minimal';
-      },
-      never,
-      false
-    >,
-    '$connect' | '$disconnect' | '$on' | '$transaction' | '$use'
-  >,
+  prismaClient: Omit<PrismaClient<Prisma.PrismaClientOptions, never, DefaultArgs>, "$connect" | "$disconnect" | "$on" | "$transaction" | "$use" | "$extends">,
   payload: {
     studentId: string;
     studentEnrolledCourseId: string;
@@ -234,7 +226,8 @@ const getAllFromDB = async (
           course: true
         }
       },
-      student: true
+      student: true,
+      academicSemester: true
     }
   });
 
@@ -325,7 +318,7 @@ const getMyCourseMarks = async (
 
   const student = await prisma.student.findFirst({
     where: {
-      studentId: authUser.id
+      userId: authUser.id
     }
   });
 
