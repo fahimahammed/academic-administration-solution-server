@@ -212,7 +212,7 @@ const confirmMyRegistration = async (
         id: semesterRegistration?.id
       },
       student: {
-        studentId: authUserId
+        userId: authUserId
       }
     }
   });
@@ -269,7 +269,7 @@ const getMyRegistration = async (
         id: semesterRegistration?.id
       },
       student: {
-        studentId: authUserId
+        userId: authUserId
       }
     }
   });
@@ -282,7 +282,7 @@ const getMySemesterRegistrationCourses = async (
 ): Promise<AvailableCourseResult> => {
   const student = await prisma.student.findFirst({
     where: {
-      studentId: authUserId
+      userId: authUserId
     }
   });
 
@@ -381,7 +381,7 @@ const startMyRegistration = async (
 }> => {
   const student = await prisma.student.findFirst({
     where: {
-      studentId: authUserId
+      userId: authUserId
     }
   });
 
@@ -507,8 +507,8 @@ const getAllFromDB = async (
       options.sortBy && options.sortOrder
         ? { [options.sortBy]: options.sortOrder }
         : {
-            createdAt: 'desc'
-          }
+          createdAt: 'desc'
+        }
   });
   const total = await prisma.semesterRegistration.count({
     where: whereConditions

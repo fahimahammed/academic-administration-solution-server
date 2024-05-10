@@ -16,6 +16,8 @@ const insertIntoDB = async (
   await OfferedCourseSectionUtils.checkIfRoomIsAvailable(payload);
   await OfferedCourseSectionUtils.checkIfFacultyIsAvailable(payload);
 
+  console.log(payload)
+
   const result = await prisma.offeredCourseClassSchedule.create({
     data: payload,
     include: {
@@ -83,8 +85,8 @@ const getAllFromDB = async (
       options.sortBy && options.sortOrder
         ? { [options.sortBy]: options.sortOrder }
         : {
-            createdAt: 'desc'
-          }
+          createdAt: 'desc'
+        }
   });
   const total = await prisma.offeredCourseClassSchedule.count({
     where: whereConditions

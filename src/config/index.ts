@@ -24,7 +24,14 @@ const envVarsZodSchema = z.object({
   API_SECRET: z.string(),
   FORGOT_PASS_RESET_LINK: z.string(),
   EMAIL: z.string(),
-  APP_PASS: z.string()
+  APP_PASS: z.string(),
+  STORE_ID: z.string(),
+  STORE_PASSWORD: z.string(),
+  PAYMENT_API: z.string(),
+  VALIDATION_API: z.string(),
+  SUCCESS_URL: z.string(),
+  CANCEL_URL: z.string(),
+  FAILED_URL: z.string(),
 });
 
 const envVars = envVarsZodSchema.parse(process.env);
@@ -53,7 +60,13 @@ export default {
     email: envVars.EMAIL,
     appPass: envVars.APP_PASS
   },
-  paymentService: {
-    initPaymentEndpoint: envVars.INIT_PAYMENT_ENDPOINT
+  ssl: {
+    storeId: envVars.STORE_ID,
+    storePass: envVars.STORE_PASSWORD,
+    paymentApi: envVars.PAYMENT_API,
+    validationApi: envVars.VALIDATION_API,
+    successUrl: envVars.SUCCESS_URL,
+    cancelUrl: envVars.CANCEL_URL,
+    failedUrl: envVars.FAILED_URL
   }
 };
