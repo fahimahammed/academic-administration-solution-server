@@ -23,6 +23,7 @@ import axios from 'axios';
 import config from '../../../config';
 import { DefaultArgs } from '@prisma/client/runtime/library';
 import { SslService } from '../ssl/ssl.service';
+import { EmailHelper } from '../../../helpers/emailHelper';
 
 const createSemesterPayment = async (
   prismaClient: Omit<PrismaClient<Prisma.PrismaClientOptions, never, DefaultArgs>, "$connect" | "$disconnect" | "$on" | "$transaction" | "$use" | "$extends">,
@@ -380,6 +381,31 @@ const completePayment = async (payload: { transactionId: string }): Promise<any>
     });
   });
 
+  const studentSemesterPaymentData = await prisma.studentSemesterPayment.findFirst({
+    where: {
+      id: studentSemesterPayment.id
+    },
+    include: {
+      student: true
+    }
+  })
+
+  if (studentSemesterPaymentData) {
+    const emailContent = await EmailHelper.createEmailContent(
+      {
+        userId: studentSemesterPaymentData.student.userId,
+        paymentDate: studentSemesterPaymentData.updatedAt,
+        transactionId: paymentDetails.transactionId,
+        userName: `${studentSemesterPaymentData.student.firstName} ${studentSemesterPaymentData?.student.middleName} ${studentSemesterPaymentData?.student.lastName}`,
+        userEmail: studentSemesterPaymentData.student.email,
+        amount: paymentDetails.dueAmount,
+        paymentType: studentSemesterPaymentData.paymentStatus
+      },
+      'paymentInvoiceEmail'
+    );
+
+    await EmailHelper.sendEmail(studentSemesterPaymentData.student.email, emailContent, "Your Semester Payment Invoice 📑🎓");
+  }
   return {
     message: 'Payment completed successfully'
   };
