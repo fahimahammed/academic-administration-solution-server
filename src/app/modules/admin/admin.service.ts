@@ -192,11 +192,22 @@ const updateOneInDB = async (id: string, payload: Partial<Admin>): Promise<Admin
 };
 
 const deleteByIdFromDB = async (id: string): Promise<Admin> => {
-  const result = await prisma.admin.delete({
-    where: {
-      userId: id
-    }
-  });
+  const result = await prisma.$transaction(async (tx) => {
+    const deletedUser = await tx.admin.delete({
+      where: {
+        userId: id
+      }
+    });
+
+    await tx.user.delete({
+      where: {
+        userId: deletedUser.userId
+      }
+    })
+
+    return deletedUser;
+
+  })
   return result;
 };
 

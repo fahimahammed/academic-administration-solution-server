@@ -30,8 +30,6 @@ const refreshToken = async (req: Request, res: Response, next: NextFunction) => 
     try {
         const { refreshToken } = req.cookies;
 
-        //console.log(refreshToken)
-
         const result = await AuthServices.refreshToken(refreshToken);
 
         sendResponse(res, {

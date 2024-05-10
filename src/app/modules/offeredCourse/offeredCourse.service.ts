@@ -54,8 +54,6 @@ const getAllFromDB = async (
 
   const andConditions = [];
 
-  console.log(searchTerm)
-
   if (searchTerm) {
     andConditions.push({
       OR: offeredCourseSearchableFields.map((field) => ({

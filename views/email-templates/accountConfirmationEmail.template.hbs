@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+<head>
+  <meta charset='UTF-8' />
+  <meta http-equiv='X-UA-Compatible' content='IE=edge' />
+  <meta name='viewport' content='width=device-width, initial-scale=1.0' />
+  <title>Your Account Has Been Successfully Created</title>
+  <style>
+    /* General styling */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f4;
+    }
+
+    .container {
+      margin: 0 auto;
+      max-width: 600px;
+      padding: 20px;
+      text-align: center;
+      background-color: #fff;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    h2 {
+      color: #333;
+      margin-bottom: 20px;
+    }
+
+    p {
+      color: #666;
+      font-size: 16px;
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+
+    .login-details {
+      margin-top: 30px;
+      border-top: 2px solid #ccc;
+      border-bottom: 2px solid #ccc;
+      padding: 20px 0;
+    }
+
+    .login-details p {
+      margin: 10px 0;
+    }
+
+    .login-instructions {
+      margin-top: 30px;
+    }
+
+    .login-instructions ol {
+      padding-left: 20px;
+      list-style-type: none;
+    }
+
+    .login-instructions ol li {
+      margin-bottom: 10px;
+      text-align: left;
+    }
+
+    .login-instructions a {
+      color: #007bff;
+      text-decoration: none;
+    }
+
+    .contact-info {
+      margin-top: 30px;
+    }
+
+    .contact-info p {
+      margin: 10px 0;
+    }
+
+    .footer {
+      margin-top: 30px;
+      text-align: center;
+      color: #888;
+    }
+
+    .header-logo {
+      width: 100px;
+      margin-bottom: 20px;
+    }
+
+    .header-text {
+      font-size: 24px;
+      color: #333;
+      font-weight: bold;
+    }
+
+    .highlight-text {
+      color: #007bff;
+    }
+
+    .greetings {
+      font-size: 20px;
+      color: #333;
+      margin-bottom: 10px;
+    }
+
+    .user-name {
+      color: #007bff;
+      font-weight: bold;
+    }
+
+    .button {
+      display: inline-block;
+      padding: 10px 20px;
+      background-color: #007bff;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 5px;
+      transition: background-color 0.3s ease;
+    }
+
+    .button:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <img src="https://via.placeholder.com/150" alt="Logo" class="header-logo">
+    <h2 class="header-text">Your Account Has Been Successfully Created</h2>
+    <p class="greetings">Hello, <span class="user-name">{{userName}}</span>,</p>
+    <p>Welcome to Academic Administration Solution! We are excited to have you on board.</p>
+
+    <div class="login-details">
+      <h3>Login Credentials:</h3>
+      <p><strong>User ID:</strong> {{userId}}</p>
+      <p><strong>Password:</strong> {{userPassword}}</p>
+    </div>
+
+    <div class="login-instructions">
+      <h3>To log in:</h3>
+      <ol>
+        <li>Visit our website: <a href="http://localhost:3000/" class="highlight-text">Click Here</a></li>
+        <li>Enter your provided user ID and the temporary password.</li>
+        <li>Once logged in, navigate to your profile settings to update your password.</li>
+      </ol>
+    </div>
+
+    <div class="contact-info">
+      <p>If you encounter any difficulties accessing your account or have any questions, feel free to reach out to us at
+        <a href="mailto:contact@aac.com" class="highlight-text">contact@aac.com</a>.
+      </p>
+    </div>
+
+    <p class="footer">Thanks,<br>Academic Administration Solution</p>
+  </div>
+</body>
+
+</html>

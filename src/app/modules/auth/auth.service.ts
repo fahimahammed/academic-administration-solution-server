@@ -155,7 +155,6 @@ const forgotPassword = async (payload: { userId: string }) => {
     const passwordResetToken = await JwtHelper.createPasswordResetToken({
         id: userData.userId
     });
-    //console.log(resetPassToken)
 
     const passwordResetLink = `${config.forgotPasswordResetUiLink}id=${userData.userId}&token=${passwordResetToken}`;
 
@@ -164,7 +163,7 @@ const forgotPassword = async (payload: { userId: string }) => {
         'sendForgotPasswordEmail'
     );
 
-    await EmailHelper.sendEmail(profile.email, emailContent);
+    await EmailHelper.sendEmail(profile.email, emailContent, "Reset Password Link");
 
     await prisma.user.update({
         where: {
