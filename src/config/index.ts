@@ -21,7 +21,10 @@ const envVarsZodSchema = z.object({
   USER_DEFAULT_PASS: z.string(),
   CLOUD_NAME: z.string(),
   API_KEY: z.string(),
-  API_SECRET: z.string()
+  API_SECRET: z.string(),
+  FORGOT_PASS_RESET_LINK: z.string(),
+  EMAIL: z.string(),
+  APP_PASS: z.string()
 });
 
 const envVars = envVarsZodSchema.parse(process.env);
@@ -30,6 +33,7 @@ export default {
   env: envVars.NODE_ENV,
   port: envVars.PORT,
   userDefaultPassword: envVars.USER_DEFAULT_PASS,
+  forgotPasswordResetUiLink: envVars.FORGOT_PASS_RESET_LINK,
   db: {
     url: envVars.DATABASE_URL
   },
@@ -44,6 +48,10 @@ export default {
     cloudName: envVars.CLOUD_NAME,
     apiKey: envVars.API_KEY,
     apiSecret: envVars.API_SECRET
+  },
+  emailSender: {
+    email: envVars.EMAIL,
+    appPass: envVars.APP_PASS
   },
   paymentService: {
     initPaymentEndpoint: envVars.INIT_PAYMENT_ENDPOINT

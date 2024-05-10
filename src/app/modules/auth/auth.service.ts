@@ -1,7 +1,13 @@
 import prisma from "../../../shared/prisma";
 import * as bcrypt from 'bcrypt'
-import { UserStatus } from "@prisma/client";
+import { UserRole, UserStatus } from "@prisma/client";
 import { JwtHelper } from "../../../helpers/jwtHelper";
+import ApiError from "../../../errors/apiError";
+import httpStatus from "http-status";
+import config from "../../../config";
+import { EmailHelper } from "../../../helpers/emailHelper";
+import { hideEmail } from "../../../shared/utils";
+import { IResetPasswordRequest } from "./auth.interface";
 
 const loginUser = async (payload: {
     id: string,
@@ -100,74 +106,129 @@ const changePassword = async (user: any, payload: any) => {
     }
 };
 
-// const forgotPassword = async (payload: { email: string }) => {
-//     const userData = await prisma.user.findUniqueOrThrow({
-//         where: {
-//             email: payload.email,
-//             status: UserStatus.ACTIVE
-//         }
-//     });
+const forgotPassword = async (payload: { userId: string }) => {
+    const userData = await prisma.user.findUniqueOrThrow({
+        where: {
+            userId: payload.userId,
+            status: UserStatus.ACTIVE
+        }
+    });
 
-//     const resetPassToken = jwtHelpers.generateToken(
-//         { email: userData.email, role: userData.role },
-//         config.jwt.reset_pass_secret as Secret,
-//         config.jwt.reset_pass_token_expires_in as string
-//     )
-//     //console.log(resetPassToken)
+    if (userData.needsPasswordChange) {
+        throw new ApiError(
+            httpStatus.BAD_REQUEST,
+            'First login with your default password and then change password'
+        );
+    }
 
-//     const resetPassLink = config.reset_pass_link + `?userId=${userData.id}&token=${resetPassToken}`
+    let profile = null;
 
-//     await emailSender(
-//         userData.email,
-//         `
-//         <div>
-//             <p>Dear User,</p>
-//             <p>Your password reset link 
-//                 <a href=${resetPassLink}>
-//                     <button>
-//                         Reset Password
-//                     </button>
-//                 </a>
-//             </p>
+    if (userData.role === UserRole.STUDENT) {
+        profile = await prisma.student.findUnique({
+            where: {
+                userId: userData.userId
+            }
+        })
+    } else if (userData.role === UserRole.FACULTY) {
+        profile = await prisma.faculty.findUnique({
+            where: {
+                userId: userData.userId
+            }
+        })
+    } else if (userData.role === UserRole.ADMIN) {
+        profile = await prisma.admin.findUnique({
+            where: {
+                userId: userData.userId
+            }
+        })
+    }
 
-//         </div>
-//         `
-//     )
-//     //console.log(resetPassLink)
-// };
+    if (!profile) {
+        throw new ApiError(httpStatus.NOT_FOUND, 'Profile not found');
+    }
 
-// const resetPassword = async (token: string, payload: { id: string, password: string }) => {
-//     console.log({ token, payload })
+    if (!profile.email) {
+        throw new ApiError(httpStatus.BAD_REQUEST, 'Email not found in profile');
+    }
 
-//     const userData = await prisma.user.findUniqueOrThrow({
-//         where: {
-//             id: payload.id,
-//             status: UserStatus.ACTIVE
-//         }
-//     });
 
-//     const isValidToken = jwtHelpers.verifyToken(token, config.jwt.reset_pass_secret as Secret)
+    const passwordResetToken = await JwtHelper.createPasswordResetToken({
+        id: userData.userId
+    });
+    //console.log(resetPassToken)
 
-//     if (!isValidToken) {
-//         throw new ApiError(httpStatus.FORBIDDEN, "Forbidden!")
-//     }
+    const passwordResetLink = `${config.forgotPasswordResetUiLink}id=${userData.userId}&token=${passwordResetToken}`;
 
-//     // hash password
-//     const password = await bcrypt.hash(payload.password, 12);
+    const emailContent = await EmailHelper.createEmailContent(
+        { resetLink: passwordResetLink, userName: profile.firstName },
+        'sendForgotPasswordEmail'
+    );
 
-//     // update into database
-//     await prisma.user.update({
-//         where: {
-//             id: payload.id
-//         },
-//         data: {
-//             password
-//         }
-//     })
-// };
+    await EmailHelper.sendEmail(profile.email, emailContent);
+
+    await prisma.user.update({
+        where: {
+            userId: userData.userId
+        },
+        data: {
+            passwordResetToken
+        }
+    });
+
+    const message = `Password reset link is sent to ${hideEmail(profile.email)}`
+
+    return {
+        message
+    }
+};
+
+const resetPassword = async (
+    payload: IResetPasswordRequest
+): Promise<{
+    message: string;
+}> => {
+    const { userId, newPassword } = payload;
+
+    const user = await prisma.user.findUnique({
+        where: {
+            userId
+        },
+        select: {
+            passwordResetToken: true
+        }
+    })
+
+    if (!user) {
+        throw new ApiError(httpStatus.NOT_FOUND, 'User does not exist');
+    }
+
+    if (!user.passwordResetToken) {
+        throw new ApiError(httpStatus.BAD_REQUEST, 'Password reset token not found');
+    }
+
+    const verifiedToken = await JwtHelper.verifyPasswordResetToken(user.passwordResetToken);
+
+    const newHashedPassword = await bcrypt.hash(newPassword, 12);
+
+    await prisma.user.update({
+        where: {
+            userId
+        },
+        data: {
+            password: newHashedPassword,
+            passwordResetToken: null
+        }
+    })
+
+    return {
+        message: 'Password reset successfully. Please login with new password'
+    };
+};
 
 export const AuthServices = {
     loginUser,
     refreshToken,
-    changePassword
+    changePassword,
+    forgotPassword,
+    resetPassword
 }
