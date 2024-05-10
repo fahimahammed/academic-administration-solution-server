@@ -12,7 +12,7 @@ import { PaginationHelper } from '../../../helpers/paginationHelper';
 import { userSearchableFields } from './user.constants';
 import ApiError from '../../../errors/apiError';
 import httpStatus from 'http-status';
-import { connect } from 'http2';
+import { EmailHelper } from '../../../helpers/emailHelper';
 
 // create admin
 const createAdmin = async (req: Request): Promise<Admin | null> => {
@@ -25,6 +25,8 @@ const createAdmin = async (req: Request): Promise<Admin | null> => {
 
     return await prisma.$transaction(async (transactionClient) => {
         const userId = await generateAdminId();
+
+        console.log(userId)
 
         const hashPassword = await bcrypt.hash(req.body.password, 12);
 
@@ -42,6 +44,13 @@ const createAdmin = async (req: Request): Promise<Admin | null> => {
                 userId
             }
         });
+
+        const emailContent = await EmailHelper.createEmailContent(
+            { userName: createdAdmin.firstName, userId: createdAdmin.userId, userPassword: req.body.password },
+            'accountConfirmationEmail'
+        );
+
+        await EmailHelper.sendEmail(createdAdmin.email, emailContent, "Welcome to Academic Administration Solution - Your Account Details 🚀");
 
         return createdAdmin;
     });
@@ -96,6 +105,13 @@ const createStudent = async (req: Request): Promise<Student | null> => {
             }
         });
 
+        const emailContent = await EmailHelper.createEmailContent(
+            { userName: createdStudent.firstName, userId: createdStudent.userId, userPassword: req.body.password },
+            'accountConfirmationEmail'
+        );
+
+        await EmailHelper.sendEmail(createdStudent.email, emailContent, "Welcome to Academic Administration Solution - Your Account Details 🚀");
+
         return createdStudent;
     });
 };
@@ -144,6 +160,14 @@ const createFaculty = async (req: Request): Promise<Faculty | null> => {
             }
         });
 
+        const emailContent = await EmailHelper.createEmailContent(
+            { userName: createdFaculty.firstName, userId: createdFaculty.userId, userPassword: req.body.password },
+            'accountConfirmationEmail'
+        );
+
+        await EmailHelper.sendEmail(createdFaculty.email, emailContent, "Welcome to Academic Administration Solution - Your Account Details 🚀");
+
+
         return createdFaculty;
     });
 };
@@ -155,10 +179,7 @@ const getAllFromDB = async (
     const { limit, page, skip } = PaginationHelper.getPaginationOptions(options); // Extract limit, page, and skip values for pagination
 
     const { searchTerm, ...filterData } = filters; // Extract searchTerm and other filter data
-
     const andConditions = [];
-
-    console.log("searchTerm  ", searchTerm)
 
     if (searchTerm) {
         // Add search conditions if searchTerm is provided
@@ -244,33 +265,43 @@ const updateOneInDB = async (id: string, payload: Partial<User>): Promise<Partia
 };
 
 const deleteByIdFromDB = async (id: string): Promise<User | null> => {
-    const result = await prisma.user.delete({
+    console.log("user id: ", id);
+    const result = await prisma.user.findUnique({
         where: {
             userId: id
         }
     });
 
     if (result) {
-        if (result.role === UserRole.STUDENT) {
-            await prisma.student.delete({
+        await prisma.$transaction(async (tx) => {
+            if (result.role === UserRole.STUDENT) {
+                await tx.student.delete({
+                    where: {
+                        userId: result.userId
+                    }
+                })
+            } else if (result.role === UserRole.FACULTY) {
+                await tx.faculty.delete({
+                    where: {
+                        userId: result.userId
+                    }
+                })
+            } else if (result.role === UserRole.ADMIN) {
+                await tx.admin.delete({
+                    where: {
+                        userId: result.userId
+                    }
+                })
+            }
+
+            await tx.user.delete({
                 where: {
-                    userId: result.userId
+                    userId: id
                 }
-            })
-        } else if (result.role === UserRole.FACULTY) {
-            await prisma.faculty.delete({
-                where: {
-                    userId: result.userId
-                }
-            })
-        } else if (result.role === UserRole.ADMIN) {
-            await prisma.admin.delete({
-                where: {
-                    userId: result.userId
-                }
-            })
-        }
+            });
+        })
     }
+
     return result;
 };
 

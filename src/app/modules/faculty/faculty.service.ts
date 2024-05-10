@@ -332,15 +332,26 @@ const updateOneInDB = async (id: string, payload: Partial<Faculty>): Promise<Fac
 };
 
 const deleteByIdFromDB = async (id: string): Promise<Faculty> => {
-  const result = await prisma.faculty.delete({
-    where: {
-      userId: id
-    },
-    include: {
-      academicFaculty: true,
-      academicDepartment: true
-    }
-  });
+  const result = await prisma.$transaction(async (tx) => {
+    const deletedUser = await tx.faculty.delete({
+      where: {
+        userId: id
+      },
+      include: {
+        academicFaculty: true,
+        academicDepartment: true
+      }
+    });
+
+    await tx.user.delete({
+      where: {
+        userId: deletedUser.userId
+      }
+    })
+
+    return deletedUser;
+
+  })
   return result;
 };
 

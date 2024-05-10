@@ -42,6 +42,8 @@ const getAllFromDB = async (
   const { limit, page, skip } = PaginationHelper.getPaginationOptions(options);
   const { searchTerm, ...filterData } = filters;
 
+  console.log({ searchTerm, filterData })
+
   const andConditions = [];
 
   if (searchTerm) {
@@ -231,16 +233,26 @@ const updateOneInDB = async (id: string, payload: Partial<Student>): Promise<Stu
 };
 
 const deleteByIdFromDB = async (id: string): Promise<Student> => {
-  const result = await prisma.student.delete({
-    where: {
-      userId: id
-    },
-    include: {
-      academicFaculty: true,
-      academicDepartment: true,
-      academicSemester: true
-    }
+  const result = await prisma.$transaction(async (tx) => {
+    const deletedUser = await tx.student.delete({
+      where: {
+        userId: id
+      },
+      include: {
+        academicFaculty: true,
+        academicDepartment: true,
+        academicSemester: true
+      }
+    });
+
+    await tx.user.delete({
+      where: {
+        userId: deletedUser.userId
+      }
+    })
+    return deletedUser;
   });
+
   return result;
 };
 

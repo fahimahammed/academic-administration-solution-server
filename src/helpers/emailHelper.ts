@@ -8,7 +8,8 @@ import config from '../config';
 
 const sendEmail = async (
     email: string,
-    html: string
+    html: string,
+    subject: string
 ) => {
     const transporter = nodemailer.createTransport({
         host: "smtp.gmail.com",
@@ -26,7 +27,7 @@ const sendEmail = async (
     const info = await transporter.sendMail({
         from: '"Academic Administration Solution" <fahimfiroz.ph@gmail.com>', // sender address
         to: email, // list of receivers
-        subject: "Reset Password Link", // Subject line
+        subject, // Subject line
         //text: "Hello world?", // plain text body
         html, // html body
     });

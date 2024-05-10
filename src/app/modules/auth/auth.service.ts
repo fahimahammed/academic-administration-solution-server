@@ -164,7 +164,7 @@ const forgotPassword = async (payload: { userId: string }) => {
         'sendForgotPasswordEmail'
     );
 
-    await EmailHelper.sendEmail(profile.email, emailContent);
+    await EmailHelper.sendEmail(profile.email, emailContent, "Reset Password Link");
 
     await prisma.user.update({
         where: {

@@ -1,6 +1,6 @@
 export const studentFilterableFields: string[] = [
   'searchTerm',
-  'studentId',
+  'userId',
   'email',
   'contactNo',
   'gender',
@@ -17,7 +17,7 @@ export const studentSearchableFields: string[] = [
   'middleName',
   'email',
   'contactNo',
-  'studentId'
+  'userId'
 ];
 
 export const studentRelationalFields: string[] = [
