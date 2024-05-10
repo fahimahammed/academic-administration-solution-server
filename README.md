@@ -9,16 +9,6 @@
 Welcome to the Academic Administration Solution server repository! This server is an integral part of our university management system designed to streamline administrative processes, enhance communication, and facilitate academic operations for students, faculty, and administrators.
 
 
-## Development
-
-<br />
-
-Copy `.env.example` to `.env`
-
-```shell
-yarn dev
-```
-
 ## Getting Started
 
 To set up the server locally, follow these steps:
