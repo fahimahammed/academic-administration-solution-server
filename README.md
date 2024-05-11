@@ -5,10 +5,16 @@
 <div align="center">
   <h1>Academic Administration Solution</h1>
 </div>
-<div align="center">
-  <strong>Server</strong>
-</div>
 
+[![Server](https://img.shields.io/badge/Server-Yes-brightgreen)](https://github.com/fahimahammed/academic-administration-solution-server) [![Version](https://img.shields.io/badge/Version-1.0-blue)](https://github.com/fahimahammed/academic-administration-solution-server) [![Build Status](https://img.shields.io/badge/Build-Passing-brightgreen)](https://github.com/fahimahammed/academic-administration-solution-server) [![PostMan Documentation](https://img.shields.io/badge/Documentation-Link-blue)](https://documenter.getpostman.com/view/3910568/2s93ecvq6w) [![License](https://img.shields.io/badge/License-MIT-yellow)](LICENSE)
+
+<!-- [![Release](https://img.shields.io/github/v/release/fahimahammed/academic-administration-solution-server)](https://github.com/fahimahammed/academic-administration-solution-server)
+
+[![Issues](https://img.shields.io/github/issues/fahimahammed/academic-administration-solution-server)](https://github.com/fahimahammed/academic-administration-solution-server/issues) -->
+
+
+
+#
 
 Welcome to the Academic Administration Solution server repository! This server is an integral part of our university management system designed to streamline administrative processes, enhance communication, and facilitate academic operations for students, faculty, and administrators.
 
@@ -80,8 +86,3 @@ To set up the server locally, follow these steps:
 ## Contributors
 - Fahim Ahammed Firoz <https://github.com/fahimahammed>
 
-## Documentation
-- [**Postman Documentation**](https://documenter.getpostman.com/view/3910568/2s93ecvq6w)
-
-## License
-[MIT](LICENSE)
