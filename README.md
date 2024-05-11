@@ -6,7 +6,7 @@
   <h1>Academic Administration Solution</h1>
 </div>
 <div align="center">
-  <strong></strong>
+  <strong>Server</strong>
 </div>
 
 
