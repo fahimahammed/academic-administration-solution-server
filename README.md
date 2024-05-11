@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="https://i.ibb.co/VSMGVXd/logo-secondary.png" width="200" alt="AAS Logo">
+</p>
+
 <div align="center">
   <h1>Academic Administration Solution</h1>
 </div>
