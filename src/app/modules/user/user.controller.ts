@@ -36,7 +36,9 @@ const createStudent = async (req: Request, res: Response, next: NextFunction) =>
 
 const createFaculty = async (req: Request, res: Response, next: NextFunction) => {
     try {
+        console.log(req.file);
         const result = await UserService.createFaculty(req);
+
         sendResponse(res, {
             statusCode: httpStatus.OK,
             success: true,
