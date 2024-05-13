@@ -283,7 +283,7 @@ const initiatePayment = async (
 
     return {
       paymentDetails: isPendingPaymentExist,
-      paymentUrl: paymentResponse.redirectGatewayURL
+      paymentUrl: paymentResponse.GatewayPageURL
     };
   }
 
@@ -319,9 +319,11 @@ const initiatePayment = async (
     customerPhoneNumber: student.contactNo
   });
 
+  console.log(paymentResponse)
+
   return {
     paymentDetails: studentSemesterPaymentHistory,
-    paymentUrl: paymentResponse.redirectGatewayURL
+    paymentUrl: paymentResponse.GatewayPageURL
   };
 };
 
@@ -347,10 +349,11 @@ const completePayment = async (payload: { transactionId: string }): Promise<any>
   });
 
   if (!studentSemesterPayment) {
-    throw new ApiError(httpStatus.NOT_FOUND, 'Student semester payment not found');
+    throw new ApiError(httpStatus.NOT_FOUND, 'Student semester payment not found!');
   }
 
   await prisma.$transaction(async (prismaTransactionClient) => {
+
     const dataToUpdate = {
       isPaid: true,
       paidAmount: paymentDetails.dueAmount,
@@ -407,7 +410,7 @@ const completePayment = async (payload: { transactionId: string }): Promise<any>
     await EmailHelper.sendEmail(studentSemesterPaymentData.student.email, emailContent, "Your Semester Payment Invoice 📑🎓");
   }
   return {
-    message: 'Payment completed successfully'
+    message: 'Successfully Paid!'
   };
 };
 

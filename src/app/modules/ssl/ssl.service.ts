@@ -16,7 +16,7 @@ const initPayment = async (
             currency: 'BDT',
             tran_id: data.transactionId,
             product_category: 'Academic Payment',
-            success_url: config.ssl.successUrl + `${data.transactionId}`,
+            success_url: config.ssl.successUrl + `&tnxId=${data.transactionId}`,
             fail_url: config.ssl.failedUrl,
             cancel_url: config.ssl.cancelUrl,
             cus_name: data?.customerName,
