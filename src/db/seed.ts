@@ -1,21 +1,29 @@
-// import config from '../config';
-// import { ENUM_USER_ROLE } from '../enums/user';
+import { UserRole } from '@prisma/client';
+import config from '../config';
+import prisma from '../shared/prisma';
+import * as bcrypt from 'bcryptjs';
 
-// const user: IUser = {
-//   id: '00001',
-//   role: ENUM_USER_ROLE.SUPER_ADMIN,
-//   password: config.superAdminPassword,
-//   needsPasswordChange: false
-// };
+const seedSuperAdmin = async () => {
+    const isSeeded = await prisma.user.findFirst({
+        where: {
+            role: UserRole.SUPER_ADMIN
+        }
+    })
 
-// const seedSuperAdmin = async () => {
-//   const isSeeded = await User.findOne({ role: ENUM_USER_ROLE.SUPER_ADMIN });
+    const hashPass = await bcrypt.hash(config.superAdminPassword as string, 12);
 
-//   if (!isSeeded) {
-//     await User.create(user);
-//   }
-// };
+    if (!isSeeded) {
+        await prisma.user.create({
+            data: {
+                userId: '00001',
+                role: UserRole.SUPER_ADMIN,
+                password: hashPass,
+                needsPasswordChange: false
+            }
+        });
+    }
+};
 
-// export const SeedDB = {
-//   seedSuperAdmin
-// };
+export const SeedDB = {
+    seedSuperAdmin
+};

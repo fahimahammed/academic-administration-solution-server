@@ -1,5 +1,5 @@
 export interface IUser {
-    userid: string;
+    userId: string;
     role: string;
     password: string;
     needsPasswordChange?: boolean;
