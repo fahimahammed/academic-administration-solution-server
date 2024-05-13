@@ -26,7 +26,7 @@ const createAdmin = async (req: Request): Promise<Admin | null> => {
     return await prisma.$transaction(async (transactionClient) => {
         const userId = await generateAdminId();
 
-        const hashPassword = await bcrypt.hash(req.body.password, 12);
+        const hashPassword = await bcrypt.hash(req.body.password || config.userDefaultPassword, 12);
 
         await transactionClient.user.create({
             data: {
