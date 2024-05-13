@@ -22,8 +22,7 @@ router.get(
 
 router.get(
   '/complete-payment',
-  // auth(ENUM_USER_ROLE.STUDENT),
-  //validateRequest(StudentSemesterPaymentValidation.completePayment),
+  auth(UserRole.STUDENT),
   StudentSemesterPaymentController.completePayment
 );
 
