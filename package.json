@@ -10,7 +10,8 @@
     "build": "tsc",
     "start": "node ./dist/server.js",
     "prisma:migrate": "npx prisma migrate dev ",
-    "prisma:generate": "npx prisma generate"
+    "prisma:generate": "npx prisma generate",
+    "prisma:studio": "npx prisma studio"
   },
   "dependencies": {
     "@prisma/client": "5",

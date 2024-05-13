@@ -32,6 +32,7 @@ const envVarsZodSchema = z.object({
   SUCCESS_URL: z.string(),
   CANCEL_URL: z.string(),
   FAILED_URL: z.string(),
+  SUPER_ADMIN_PASS: z.string(),
 });
 
 const envVars = envVarsZodSchema.parse(process.env);
@@ -41,6 +42,7 @@ export default {
   port: envVars.PORT,
   userDefaultPassword: envVars.USER_DEFAULT_PASS,
   forgotPasswordResetUiLink: envVars.FORGOT_PASS_RESET_LINK,
+  superAdminPassword: envVars.SUPER_ADMIN_PASS,
   db: {
     url: envVars.DATABASE_URL
   },
