@@ -124,7 +124,11 @@ const getByIdFromDB = async (id: string): Promise<OfferedCourse | null> => {
       id
     },
     include: {
-      semesterRegistration: true,
+      semesterRegistration: {
+        include: {
+          academicSemester: true
+        }
+      },
       course: true,
       academicDepartment: true
     }
