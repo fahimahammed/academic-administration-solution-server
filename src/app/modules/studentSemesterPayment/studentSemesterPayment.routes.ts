@@ -15,16 +15,17 @@ router.get(
 );
 
 router.get(
+  '/my-semester-payments',
+  auth(UserRole.STUDENT),
+  StudentSemesterPaymentController.getMySemesterPayments
+);
+
+router.get(
   '/:id',
   auth(UserRole.ADMIN, UserRole.SUPER_ADMIN, UserRole.FACULTY),
   StudentSemesterPaymentController.getDataById
 );
 
-router.get(
-  '/my-semester-payments',
-  auth(UserRole.STUDENT),
-  StudentSemesterPaymentController.getMySemesterPayments
-);
 
 router.get(
   '/complete-payment',
