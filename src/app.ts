@@ -10,7 +10,7 @@ const app: Application = express();
 
 app.use(cors({
   credentials: true,
-  origin: "http://localhost:3000"
+  origin: ["http://localhost:3000", "http://localhost:4200"]
 }));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());

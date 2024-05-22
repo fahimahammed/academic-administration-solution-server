@@ -13,7 +13,7 @@ const checkIfRoomIsAvailable = async (
     where: {
       room: { id: classSchedule.roomId },
       dayOfWeek: classSchedule.dayOfWeek as WeekDays,
-      semesterRegistrationId: offeredCourse.semesterRegistrationId
+      //semesterRegistrationId: offeredCourse.semesterRegistrationId
     }
   });
 
@@ -42,7 +42,7 @@ const checkIfFacultyIsAvailable = async (
     where: {
       faculty: { id: classSchedule.facultyId },
       dayOfWeek: classSchedule.dayOfWeek as WeekDays,
-      semesterRegistrationId: offeredCourse.semesterRegistrationId
+      //semesterRegistrationId: offeredCourse.semesterRegistrationId
     }
   });
 
