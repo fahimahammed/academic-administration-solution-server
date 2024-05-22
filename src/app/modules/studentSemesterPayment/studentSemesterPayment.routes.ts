@@ -10,8 +10,14 @@ const router = express.Router();
 
 router.get(
   '/',
-  auth(UserRole.ADMIN, UserRole.FACULTY),
+  auth(UserRole.ADMIN, UserRole.SUPER_ADMIN, UserRole.FACULTY),
   StudentSemesterPaymentController.getAllFromDB
+);
+
+router.get(
+  '/:id',
+  auth(UserRole.ADMIN, UserRole.SUPER_ADMIN, UserRole.FACULTY),
+  StudentSemesterPaymentController.getDataById
 );
 
 router.get(

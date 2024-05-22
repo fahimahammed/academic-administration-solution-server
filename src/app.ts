@@ -16,7 +16,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cookieParser());
 
-// SeedDB.seedSuperAdmin(); // seed super admin
+SeedDB.seedSuperAdmin(); // seed super admin
 
 app.use('/api/v1', routes);
 

@@ -22,6 +22,22 @@ const getAllFromDB = async (req: Request, res: Response, next: NextFunction) => 
   }
 };
 
+const getDataById = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+
+    const { id } = req.params;
+    const result = await StudentSemesterPaymentService.getDataById(id);
+    sendResponse(res, {
+      statusCode: httpStatus.OK,
+      success: true,
+      message: 'Student semester payment fetched successfully',
+      data: result
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
 const getMySemesterPayments = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const filters = pick(req.query, studentSemesterPaymentFilterableFields);
@@ -80,5 +96,6 @@ export const StudentSemesterPaymentController = {
   getAllFromDB,
   getMySemesterPayments,
   initiatePayment,
-  completePayment
+  completePayment,
+  getDataById
 };

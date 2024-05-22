@@ -72,9 +72,11 @@ const getAllFromDB = async (
   if (searchTerm) {
     andConditions.push({
       OR: studentSemesterPaymentSearchableFields.map((field) => ({
-        [field]: {
-          contains: searchTerm,
-          mode: 'insensitive'
+        student: {
+          [field]: {
+            contains: searchTerm,
+            mode: 'insensitive'
+          }
         }
       }))
     });
@@ -106,7 +108,8 @@ const getAllFromDB = async (
   const result = await prisma.studentSemesterPayment.findMany({
     include: {
       academicSemester: true,
-      student: true
+      student: true,
+      paymentHistories: true
     },
     where: whereConditions,
     skip,
@@ -414,10 +417,30 @@ const completePayment = async (payload: { transactionId: string }): Promise<any>
   };
 };
 
+const getDataById = async (id: string) => {
+  const result = await prisma.studentSemesterPayment.findUniqueOrThrow({
+    where: {
+      id
+    },
+    include: {
+      student: {
+        include: {
+          academicDepartment: true,
+          academicFaculty: true
+        }
+      },
+      paymentHistories: true,
+      academicSemester: true
+    }
+  })
+  return result;
+}
+
 export const StudentSemesterPaymentService = {
   createSemesterPayment,
   getAllFromDB,
   getMySemesterPayments,
   initiatePayment,
-  completePayment
+  completePayment,
+  getDataById
 };

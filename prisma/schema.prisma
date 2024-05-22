@@ -280,6 +280,7 @@ model SemesterRegistration {
 
   studentSemesterRegistrationCourses StudentSemesterRegistrationCourse[]
   offeredCourseSections              OfferedCourseSection[]
+  offeredCourseClassSchedules        OfferedCourseClassSchedule[]
 
   @@map("semester_registrations")
 }
@@ -340,6 +341,9 @@ model OfferedCourseClassSchedule {
 
   offeredCourseSection   OfferedCourseSection @relation(fields: [offeredCourseSectionId], references: [id])
   offeredCourseSectionId String
+
+  semesterRegistration   SemesterRegistration @relation(fields: [semesterRegistrationId], references: [id])
+  semesterRegistrationId String
 
   room   Room   @relation(fields: [roomId], references: [id])
   roomId String
