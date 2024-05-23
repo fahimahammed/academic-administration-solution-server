@@ -49,9 +49,20 @@ const getDashboardData = async () => {
     }
 
     const studentCount = await prisma.student.count();
+    const maleStudentCount = await prisma.student.count({
+        where: {
+            gender: 'MALE',
+        },
+    });
+    const femaleStudentCount = await prisma.student.count({
+        where: {
+            gender: 'FEMALE',
+        },
+    });
     const facultyCount = await prisma.faculty.count();
     const adminCount = await prisma.admin.count();
     const departmentCount = await prisma.academicDepartment.count();
+    const courseCount = await prisma.course.count();
 
     const totalFees = await prisma.studentSemesterPayment.aggregate({
         _sum: {
@@ -59,75 +70,26 @@ const getDashboardData = async () => {
         },
     });
 
-    const completedCourses = await prisma.studentEnrolledCourse.groupBy({
-        by: ['academicSemesterId'],
-        _count: {
-            id: true,
-        },
-        where: {
-            status: 'COMPLETED',
-        },
-    });
-
-    const totalCourses = await prisma.studentEnrolledCourse.groupBy({
-        by: ['academicSemesterId'],
-        _count: {
-            id: true,
-        },
-    });
-
-    const completionRates = totalCourses.map((total) => {
-        const completed = completedCourses.find(
-            (comp) => comp.academicSemesterId === total.academicSemesterId
-        );
-        return {
-            semesterId: total.academicSemesterId,
-            completionRate: completed
-                ? (completed._count.id / total._count.id) * 100
-                : 0,
-        };
-    });
-
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
-    const tomorrow = new Date(today);
-    tomorrow.setDate(today.getDate() + 1);
-
-    const todaysClassSchedules = await prisma.offeredCourseClassSchedule.findMany({
-        where: {
-            createdAt: {
-                gte: today,
-                lt: tomorrow,
-            },
-        },
-        include: {
-            room: true,
-            faculty: true,
-            offeredCourseSection: {
-                include: {
-                    offeredCourse: {
-                        include: {
-                            course: true,
-                        },
-                    },
-                },
-            },
+    const totalDue = await prisma.studentSemesterPayment.aggregate({
+        _sum: {
+            totalDueAmount: true,
         },
     });
 
     return {
         metaData: {
             studentCount,
+            maleStudentCount,
+            femaleStudentCount,
             facultyCount,
             adminCount,
             departmentCount,
-            totalCourses,
+            courseCount,
             totalFees: totalFees._sum.totalPaidAmount,
+            totalDue: totalDue._sum.totalDueAmount,
         },
         paymentHistory: paymentHistory.reverse(), // To have the earliest month first
-        courseCompletionRate: completionRates,
         averageLecturesPerMonth: lecturesCount.reverse(), // To have the earliest month first
-        todaysClassSchedules,
     };
 };
 
