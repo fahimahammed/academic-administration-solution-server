@@ -17,6 +17,7 @@ import { studentSemesterPaymentRoutes } from '../modules/studentSemesterPayment/
 import { userRoutes } from '../modules/user/user.routes';
 import { AuthRoutes } from '../modules/auth/auth.routes';
 import { adminsRoutes } from '../modules/admin/admin.routes';
+import { metaRoutes } from '../modules/meta/meta.routes';
 
 const router = express.Router();
 
@@ -93,6 +94,10 @@ const moduleRoutes = [
   {
     path: '/student-semester-payments',
     routes: studentSemesterPaymentRoutes
+  },
+  {
+    path: '/meta',
+    routes: metaRoutes
   }
 ];
 
