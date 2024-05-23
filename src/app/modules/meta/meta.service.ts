@@ -1,4 +1,4 @@
-import { PrismaClient } from '@prisma/client';
+import { PrismaClient, UserStatus } from '@prisma/client';
 import { subMonths, startOfMonth, endOfMonth } from 'date-fns';
 
 const prisma = new PrismaClient();
@@ -76,6 +76,14 @@ const getDashboardData = async () => {
         },
     });
 
+    const totalUserCount = await prisma.user.count();
+
+    const activeUserCount = await prisma.user.count({
+        where: {
+            status: UserStatus.ACTIVE,
+        },
+    });
+
     return {
         metaData: {
             studentCount,
@@ -87,6 +95,8 @@ const getDashboardData = async () => {
             courseCount,
             totalFees: totalFees._sum.totalPaidAmount,
             totalDue: totalDue._sum.totalDueAmount,
+            totalUserCount,
+            activeUserCount,
         },
         paymentHistory: paymentHistory.reverse(), // To have the earliest month first
         averageLecturesPerMonth: lecturesCount.reverse(), // To have the earliest month first
