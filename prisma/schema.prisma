@@ -535,6 +535,7 @@ enum StudentEnrolledCourseStatus {
   ONGOING
   COMPLETED
   WITHDRAWN
+  FAILED
 }
 
 enum WeekDays {

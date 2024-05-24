@@ -7,6 +7,9 @@ const getDashboardData = async () => {
     const currentDate = new Date();
     const paymentHistory = [];
     const lecturesCount = [];
+    const newStudentsCount = [];
+    const newAdminsCount = [];
+    const newFacultyCount = [];
 
     for (let i = 0; i < 12; i++) {
         const startDate = startOfMonth(subMonths(currentDate, i));
@@ -45,6 +48,51 @@ const getDashboardData = async () => {
             month: startDate.toLocaleString('default', { month: 'short' }),
             year: startDate.getFullYear(),
             lectureCount: monthlyLectures,
+        });
+
+        const newStudents = await prisma.student.count({
+            where: {
+                createdAt: {
+                    gte: startDate,
+                    lte: endDate,
+                },
+            },
+        });
+
+        newStudentsCount.push({
+            month: startDate.toLocaleString('default', { month: 'short' }),
+            year: startDate.getFullYear(),
+            count: newStudents,
+        });
+
+        const newAdmins = await prisma.admin.count({
+            where: {
+                createdAt: {
+                    gte: startDate,
+                    lte: endDate,
+                },
+            },
+        });
+
+        newAdminsCount.push({
+            month: startDate.toLocaleString('default', { month: 'short' }),
+            year: startDate.getFullYear(),
+            count: newAdmins,
+        });
+
+        const newFaculty = await prisma.faculty.count({
+            where: {
+                createdAt: {
+                    gte: startDate,
+                    lte: endDate,
+                },
+            },
+        });
+
+        newFacultyCount.push({
+            month: startDate.toLocaleString('default', { month: 'short' }),
+            year: startDate.getFullYear(),
+            count: newFaculty,
         });
     }
 
@@ -100,9 +148,11 @@ const getDashboardData = async () => {
         },
         paymentHistory: paymentHistory.reverse(), // To have the earliest month first
         averageLecturesPerMonth: lecturesCount.reverse(), // To have the earliest month first
+        newStudentsCount: newStudentsCount.reverse(),
+        newAdminsCount: newAdminsCount.reverse(),
+        newFacultyCount: newFacultyCount.reverse(),
     };
 };
-
 
 export const MetaServices = {
     getDashboardData
