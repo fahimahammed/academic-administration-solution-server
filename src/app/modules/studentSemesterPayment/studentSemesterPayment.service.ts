@@ -49,7 +49,7 @@ const createSemesterPayment = async (
       studentId: payload.studentId,
       academicSemesterId: payload.academicSemesterId,
       fullPaymentAmount: payload.totalPaymentAmount,
-      partialPaymentAmount: payload.totalPaymentAmount * 0.6,
+      partialPaymentAmount: payload.totalPaymentAmount * 0.3,
       totalPaidAmount: 0,
       totalDueAmount: payload.totalPaymentAmount
     };
