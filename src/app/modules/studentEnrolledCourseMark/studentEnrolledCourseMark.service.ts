@@ -523,6 +523,8 @@ const updateStudentCourseFinalMarks = async (
   const finalGradeAndPoints =
     StudentEnrolledCourseMarkUtils.getGradeFromMarksAndPoints(totalFinalMarks);
 
+  const courseCompletionStatus = finalGradeAndPoints.grade === 'F' ? StudentEnrolledCourseStatus.FAILED : StudentEnrolledCourseStatus.COMPLETED
+
   await prisma.studentEnrolledCourse.updateMany({
     where: {
       student: {
@@ -539,7 +541,7 @@ const updateStudentCourseFinalMarks = async (
       grade: finalGradeAndPoints.grade,
       point: finalGradeAndPoints.points,
       totalMarks: totalFinalMarks,
-      status: StudentEnrolledCourseStatus.COMPLETED
+      status: courseCompletionStatus
     }
   });
 

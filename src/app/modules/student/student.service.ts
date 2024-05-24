@@ -268,7 +268,14 @@ const getMyAcademicInfo = async (authUser: IAuthUser): Promise<any> => {
       student: {
         userId: authUser.id
       },
-      status: StudentEnrolledCourseStatus.COMPLETED
+      OR: [
+        {
+          status: StudentEnrolledCourseStatus.COMPLETED
+        },
+        {
+          status: StudentEnrolledCourseStatus.FAILED
+        }
+      ]
     },
     include: {
       course: true,

@@ -20,12 +20,6 @@ router.get(
   StudentSemesterPaymentController.getMySemesterPayments
 );
 
-router.get(
-  '/:id',
-  auth(UserRole.ADMIN, UserRole.SUPER_ADMIN, UserRole.FACULTY),
-  StudentSemesterPaymentController.getDataById
-);
-
 
 router.get(
   '/complete-payment',
@@ -40,6 +34,11 @@ router.post(
   StudentSemesterPaymentController.initiatePayment
 );
 
+router.get(
+  '/:id',
+  auth(UserRole.ADMIN, UserRole.SUPER_ADMIN, UserRole.FACULTY),
+  StudentSemesterPaymentController.getDataById
+);
 
 // router.post(
 //   '/update-course-final-marks',
