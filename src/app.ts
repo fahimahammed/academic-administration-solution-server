@@ -10,7 +10,7 @@ const app: Application = express();
 
 app.use(cors({
   credentials: true,
-  origin: ["http://localhost:3000", "http://localhost:4200"]
+  origin: ["http://localhost:3000", "http://localhost:4200", "https://aas-front.vercel.app"]
 }));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());

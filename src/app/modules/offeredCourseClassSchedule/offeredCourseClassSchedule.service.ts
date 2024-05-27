@@ -74,7 +74,11 @@ const getAllFromDB = async (
     include: {
       offeredCourseSection: true,
       faculty: true,
-      room: true
+      room: {
+        include: {
+          building: true
+        }
+      }
     },
     where: whereConditions,
     skip,
@@ -106,9 +110,21 @@ const getByIdFromDB = async (id: string): Promise<OfferedCourseClassSchedule | n
       id
     },
     include: {
-      offeredCourseSection: true,
+      offeredCourseSection: {
+        include: {
+          offeredCourse: {
+            include: {
+              course: true
+            }
+          }
+        }
+      },
       faculty: true,
-      room: true
+      room: {
+        include: {
+          building: true
+        }
+      },
     }
   });
   return result;
