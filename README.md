@@ -83,6 +83,9 @@ To set up the server locally, follow these steps:
 - **bcrypt:** Password hashing library for securing user credentials.
 - **Multer:** Middleware for handling multipart/form-data for file uploads.
 
+## ERD
+![ERD](https://i.ibb.co/XWT2jXZ/AAS-ERD.png)
+
 ## Contributors
 - Fahim Ahammed Firoz <https://github.com/fahimahammed>
 
