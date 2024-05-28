@@ -53,8 +53,8 @@ const getAllFromDB = async (
       options.sortBy && options.sortOrder
         ? { [options.sortBy]: options.sortOrder }
         : {
-            createdAt: 'desc'
-          }
+          createdAt: 'desc'
+        }
   });
   const total = await prisma.building.count({
     where: whereConditions
@@ -74,6 +74,9 @@ const getByIdFromDB = async (id: string): Promise<Building | null> => {
   const result = await prisma.building.findUnique({
     where: {
       id
+    },
+    include: {
+      rooms: true
     }
   });
   return result;
