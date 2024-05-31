@@ -50,8 +50,6 @@ const getAvailableCourses = (
       }
     });
 
-  console.log(availableCourses)
-
   return availableCourses;
 };
 
