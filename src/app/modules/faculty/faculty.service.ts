@@ -53,7 +53,11 @@ const getMyCourseStudents = async (
       }
     },
     include: {
-      student: true
+      student: {
+        include: {
+          studentEnrolledCourseMarks: true
+        }
+      }
     },
     take: limit,
     skip
