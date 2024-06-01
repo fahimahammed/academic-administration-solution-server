@@ -55,7 +55,11 @@ const getMyCourseStudents = async (
     include: {
       student: {
         include: {
-          studentEnrolledCourseMarks: true
+          studentEnrolledCourseMarks: {
+            include: {
+              studentEnrolledCourse: true
+            }
+          }
         }
       }
     },
@@ -64,7 +68,21 @@ const getMyCourseStudents = async (
   });
 
   const students = offeredCourseSections.map(
-    (offeredCourseSection) => offeredCourseSection.student
+    (offeredCourseSection) => {
+      //console.log(offeredCourseSection.student.studentEnrolledCourseMarks, "=========")
+      const courseMarks: { examType: string, marks: number }[] = [];
+      const courseResults = offeredCourseSection.student.studentEnrolledCourseMarks.filter((result) => {
+        if (result.academicSemesterId === filters.academicSemesterId && result.studentEnrolledCourse.courseId === filters.courseId) {
+          courseMarks.push({
+            examType: result.examType as string,
+            marks: result.marks as number
+          })
+        }
+        //return courseMarks;
+      });
+
+      return { ...offeredCourseSection.student, courseMarks };
+    }
   );
 
   const total = await prisma.studentSemesterRegistrationCourse.count({
