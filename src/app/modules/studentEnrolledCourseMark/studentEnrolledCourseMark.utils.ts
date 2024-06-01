@@ -18,52 +18,52 @@ const getGradeFromMarksAndPoints = (
   } else if (marks >= 35 && marks <= 39) {
     result = {
       grade: 'D',
-      points: 0.7
+      points: 1.50
     };
   } else if (marks >= 40 && marks <= 44) {
     result = {
       grade: 'D+',
-      points: 1
+      points: 1.75
     };
   } else if (marks >= 45 && marks <= 49) {
     result = {
       grade: 'C-',
-      points: 1.3
+      points: 2
     };
   } else if (marks >= 50 && marks <= 54) {
     result = {
       grade: 'C',
-      points: 1.7
+      points: 2.25
     };
   } else if (marks >= 55 && marks <= 59) {
     result = {
       grade: 'C+',
-      points: 2
+      points: 2.50
     };
   } else if (marks >= 60 && marks <= 64) {
     result = {
       grade: 'B-',
-      points: 2.3
+      points: 2.75
     };
   } else if (marks >= 65 && marks <= 69) {
     result = {
       grade: 'B',
-      points: 2.7
+      points: 3
     };
   } else if (marks >= 70 && marks <= 74) {
     result = {
       grade: 'B+',
-      points: 3
+      points: 3.25
     };
   } else if (marks >= 75 && marks <= 79) {
     result = {
       grade: 'A-',
-      points: 3.3
+      points: 3.50
     };
   } else if (marks >= 80 && marks <= 89) {
     result = {
       grade: 'A',
-      points: 3.7
+      points: 3.75
     };
   } else if (marks >= 90 && marks <= 100) {
     result = {

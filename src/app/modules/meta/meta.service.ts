@@ -15,17 +15,18 @@ const getDashboardData = async () => {
         const startDate = startOfMonth(subMonths(currentDate, i));
         const endDate = endOfMonth(subMonths(currentDate, i));
 
-        const monthlyPayments = await prisma.studentSemesterPayment.findMany({
+        const monthlyPayments = await prisma.studentSemesterPaymentHistory.findMany({
             where: {
                 createdAt: {
                     gte: startDate,
                     lte: endDate,
                 },
+                isPaid: true
             },
         });
 
         const totalMonthlyPayments = monthlyPayments.reduce(
-            (sum, payment) => sum + (payment.totalPaidAmount || 0),
+            (sum, payment) => sum + (payment.paidAmount || 0),
             0
         );
 

@@ -322,8 +322,6 @@ const initiatePayment = async (
     customerPhoneNumber: student.contactNo
   });
 
-  console.log(paymentResponse)
-
   return {
     paymentDetails: studentSemesterPaymentHistory,
     paymentUrl: paymentResponse.GatewayPageURL
