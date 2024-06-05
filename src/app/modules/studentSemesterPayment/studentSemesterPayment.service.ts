@@ -329,6 +329,7 @@ const initiatePayment = async (
 };
 
 const completePayment = async (payload: { transactionId: string }): Promise<any> => {
+  console.log({ tnxId: payload.transactionId })
   const paymentDetails = await prisma.studentSemesterPaymentHistory.findUniqueOrThrow({
     where: {
       transactionId: payload.transactionId || ""
