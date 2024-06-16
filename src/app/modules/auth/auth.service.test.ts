@@ -44,4 +44,12 @@ describe('Auth Service', () => {
         expect(res.body.message).toEqual('RecordNotFound');
         //expect(res.body.data).toBeNull();
     });
+
+    it('should not refresh the access token', async () => {
+        const res = await request(app)
+            .post('/api/v1/auth/refresh-token')
+
+        expect(res.statusCode).toEqual(500);
+        expect(res.body.success).toBeFalsy();
+    });
 });
