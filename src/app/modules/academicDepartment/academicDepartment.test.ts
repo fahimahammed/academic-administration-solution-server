@@ -1,15 +1,26 @@
-import request from 'supertest';
-import app from '../../../app';
+import config from '../../../config';
+import { testDeleteApi, testGetApi } from '../../../shared/testUtils';
+
+const academicDepartmentId: string = "fc721b77-c248-4593-97fc-b280044c8da7";
+const baseApi: string = `${config.testBase}/academic-departments`;
 
 describe('Academic Department', () => {
-    it('should retrive all academic department', async () => {
-        const res = await request(app)
-            .get('/api/v1/academic-departments')
+    testGetApi(
+        "should retrive all academic department",
+        baseApi,
+        200,
+        true,
+        'Academic Departments fetched successfully',
+        true
+    )
 
-        expect(res.statusCode).toEqual(200);
-        expect(res.body.success).toBeTruthy();
-        expect(res.body.message).toEqual('Academic Departments fetched successfully');
-        expect(res.body.data).toBeDefined();
-    });
+    testGetApi(
+        "should retrive all academic department",
+        `${baseApi}/${academicDepartmentId}`,
+        200,
+        true,
+        'AcademicDepartment fetched successfully',
+        true
+    );
 
 });
