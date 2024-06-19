@@ -2,11 +2,55 @@ import request from 'supertest';
 import app from '../../../app';
 
 describe('Authentication', () => {
-    it('should login a user with valid credentials', async () => {
+    it('should login a user (SUPER ADMIN) with valid credentials', async () => {
+        const res = await request(app)
+            .post('/api/v1/auth/login')
+            .send({
+                id: '00001',
+                password: '123456'
+            });
+
+        expect(res.statusCode).toEqual(200);
+        expect(res.body.success).toBeTruthy();
+        expect(res.body.message).toEqual('Logged in successfully!');
+        expect(res.body.data.accessToken).toBeDefined();
+        expect(res.body.data.refreshToken).toBeDefined();
+    });
+
+    it('should login a user (ADMIN) with valid credentials', async () => {
+        const res = await request(app)
+            .post('/api/v1/auth/login')
+            .send({
+                id: 'A-00001',
+                password: '123456'
+            });
+
+        expect(res.statusCode).toEqual(200);
+        expect(res.body.success).toBeTruthy();
+        expect(res.body.message).toEqual('Logged in successfully!');
+        expect(res.body.data.accessToken).toBeDefined();
+        expect(res.body.data.refreshToken).toBeDefined();
+    });
+
+    it('should login a user (FACULTY) with valid credentials', async () => {
         const res = await request(app)
             .post('/api/v1/auth/login')
             .send({
                 id: 'F-00001',
+                password: '123456'
+            });
+
+        expect(res.statusCode).toEqual(200);
+        expect(res.body.success).toBeTruthy();
+        expect(res.body.message).toEqual('Logged in successfully!');
+        expect(res.body.data.accessToken).toBeDefined();
+        expect(res.body.data.refreshToken).toBeDefined();
+    });
+    it('should login a user (STUDENT) with valid credentials', async () => {
+        const res = await request(app)
+            .post('/api/v1/auth/login')
+            .send({
+                id: '240100001',
                 password: '123456'
             });
 

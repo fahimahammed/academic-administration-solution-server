@@ -33,6 +33,7 @@ const envVarsZodSchema = z.object({
   CANCEL_URL: z.string(),
   FAILED_URL: z.string(),
   SUPER_ADMIN_PASS: z.string(),
+  TEST_BASE: z.string(),
 });
 
 const envVars = envVarsZodSchema.parse(process.env);
@@ -70,5 +71,6 @@ export default {
     successUrl: envVars.SUCCESS_URL,
     cancelUrl: envVars.CANCEL_URL,
     failedUrl: envVars.FAILED_URL
-  }
+  },
+  testBase: envVars.TEST_BASE
 };
