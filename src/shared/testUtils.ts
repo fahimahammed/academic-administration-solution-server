@@ -37,12 +37,15 @@ export const testPostApi = (
     shouldBodyBeDefined: boolean,
     token?: string
 ) => {
+    let res = null;
+
     it(title, async () => {
         const req = request(app).post(api).send(postData);
         if (token) {
             req.set('Authorization', `${token}`);
         }
         const response = await req;
+        res = response;
 
         expect(response.status).toBe(expectedStatusCode);
         expect(response.body.success).toBe(expectedSuccess);
@@ -51,6 +54,7 @@ export const testPostApi = (
             expect(response.body.data).toBeDefined();
         }
     });
+    return res;
 };
 
 export const testDeleteApi = (
