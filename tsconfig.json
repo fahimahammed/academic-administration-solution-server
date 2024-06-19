@@ -3,12 +3,20 @@
     "target": "es2016",
     "outDir": "./dist",
     "module": "commonjs",
-    "types": ["node"],
+    "types": [
+      "node",
+      "jest"
+    ],
     "resolveJsonModule": true,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "strict": true,
     "skipLibCheck": true,
     "strictNullChecks": true
-  }
+  },
+  "include": [
+    "src/**/*.ts",
+    "test/**/*.ts",
+    // if you have tests in other directories, include them too
+  ]
 }
