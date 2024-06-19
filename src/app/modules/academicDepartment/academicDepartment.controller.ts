@@ -27,7 +27,7 @@ const getAllFromDB = async (req: Request, res: Response, next: NextFunction) => 
     sendResponse(res, {
       statusCode: httpStatus.OK,
       success: true,
-      message: 'AcademicDepartments fetched successfully',
+      message: 'Academic Departments fetched successfully',
       meta: result.meta,
       data: result.data
     });

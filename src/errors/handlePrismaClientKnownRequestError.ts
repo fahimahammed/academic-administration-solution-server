@@ -41,7 +41,7 @@ export default function handlePrismaClientKnownRequestError(
     }
   }
 
-  console.error();
+
 
   return {
     statusCode,
