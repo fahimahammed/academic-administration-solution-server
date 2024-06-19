@@ -1,10 +1,13 @@
 import request from 'supertest';
 import app from '../../../app';
+import config from '../../../config';
+
+const baseApi: string = `${config.test.baseApi}/auth`;
 
 describe('Authentication', () => {
     it('should login a user (SUPER ADMIN) with valid credentials', async () => {
         const res = await request(app)
-            .post('/api/v1/auth/login')
+            .post(`${baseApi}/login`)
             .send({
                 id: '00001',
                 password: '123456'
@@ -19,7 +22,7 @@ describe('Authentication', () => {
 
     it('should login a user (ADMIN) with valid credentials', async () => {
         const res = await request(app)
-            .post('/api/v1/auth/login')
+            .post(`${baseApi}/login`)
             .send({
                 id: 'A-00001',
                 password: '123456'
@@ -34,7 +37,7 @@ describe('Authentication', () => {
 
     it('should login a user (FACULTY) with valid credentials', async () => {
         const res = await request(app)
-            .post('/api/v1/auth/login')
+            .post(`${baseApi}/login`)
             .send({
                 id: 'F-00001',
                 password: '123456'
@@ -48,7 +51,7 @@ describe('Authentication', () => {
     });
     it('should login a user (STUDENT) with valid credentials', async () => {
         const res = await request(app)
-            .post('/api/v1/auth/login')
+            .post(`${baseApi}/login`)
             .send({
                 id: '240100001',
                 password: '123456'
@@ -63,7 +66,7 @@ describe('Authentication', () => {
 
     it('should return 401 Unauthorized for wrong password', async () => {
         const res = await request(app)
-            .post('/api/v1/auth/login')
+            .post(`${baseApi}/login`)
             .send({
                 id: 'F-00001',
                 password: 'wrongpassword'
@@ -77,7 +80,7 @@ describe('Authentication', () => {
 
     it('should return 404 Not Found for non-existent user ID', async () => {
         const res = await request(app)
-            .post('/api/v1/auth/login')
+            .post(`${baseApi}/login`)
             .send({
                 id: 'nonexistentID',
                 password: '123456'
@@ -91,7 +94,7 @@ describe('Authentication', () => {
 
     it('should not refresh the access token', async () => {
         const res = await request(app)
-            .post('/api/v1/auth/refresh-token')
+            .post(`${baseApi}/refresh-token`)
 
         expect(res.statusCode).toEqual(500);
         expect(res.body.success).toBeFalsy();

@@ -2,7 +2,7 @@ import request from 'supertest';
 import app from '../../../app';
 import config from '../../../config';
 
-const baseApi: string = `${config.testBase}/users`;
+const baseApi: string = `${config.test.baseApi}/users`;
 const userId: string = "0a9ea16a-646d-42ca-9a43-8a25b632040e";
 
 describe('User Management', () => {

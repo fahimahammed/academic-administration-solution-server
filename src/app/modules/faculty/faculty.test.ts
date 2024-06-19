@@ -2,7 +2,7 @@ import config from '../../../config';
 import { testGetApi } from '../../../shared/testUtils';
 
 const Id: string = "438272525-kshfs-2342";
-const baseApi: string = `${config.testBase}/faculties`;
+const baseApi: string = `${config.test.baseApi}/faculties`;
 
 describe('Faculty Management', () => {
     testGetApi(
