@@ -4,9 +4,6 @@ import { IGenericFilterOptions, IGenericResponse } from '../../../interfaces/com
 import prisma from '../../../shared/prisma';
 
 import {
-  EVENT_ACADEMIC_DEPARTMENT_CREATED,
-  EVENT_ACADEMIC_DEPARTMENT_DELETED,
-  EVENT_ACADEMIC_DEPARTMENT_UPDATED,
   academicDepartmentRelationalFields,
   academicDepartmentRelationalFieldsMapper,
   academicDepartmentSearchableFields

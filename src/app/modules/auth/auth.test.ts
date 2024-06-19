@@ -1,7 +1,7 @@
 import request from 'supertest';
 import app from '../../../app';
 
-describe('Auth Service', () => {
+describe('Authentication', () => {
     it('should login a user with valid credentials', async () => {
         const res = await request(app)
             .post('/api/v1/auth/login')
