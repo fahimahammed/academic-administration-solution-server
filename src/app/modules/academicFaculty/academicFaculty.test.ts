@@ -1,12 +1,12 @@
 import config from '../../../config';
 import { testDeleteApi, testGetApi, testPostApi } from '../../../shared/testUtils';
 
-let academicFacultyId: string = "";
+let academicFacultyId: string = "testId";
 const baseApi: string = `${config.test.baseApi}/academic-faculties`;
 
-const postData = {
-    title: "test academic faculty"
-}
+// const postData = {
+//     title: "test academic faculty"
+// }
 
 describe('Academic Faculty', () => {
     // const testPostRes = testPostApi(
@@ -20,9 +20,6 @@ describe('Academic Faculty', () => {
     //     config.test.adminToken
     // );
 
-    //@ts-ignore
-    academicFacultyId = testPostRes?.id
-
     testGetApi(
         'should retrive all academic department',
         baseApi,
@@ -33,7 +30,7 @@ describe('Academic Faculty', () => {
     );
 
     testGetApi(
-        'should retrive academic department with id',
+        'should retrive academic faculty with id',
         `${baseApi}/${academicFacultyId}`,
         200,
         true,
