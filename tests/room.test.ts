@@ -1,8 +1,8 @@
-import config from '../../../config';
-import { testGetApi } from '../../../shared/testUtils';
+import { testGetApi } from "./testUtils";
+import { baseApi as bApi } from './test.constants';
 
 let Id: string = "testId";
-const baseApi: string = `${config.test.baseApi}/rooms`;
+const baseApi: string = `${bApi}/rooms`;
 
 describe('Room Management', () => {
 

@@ -1,8 +1,8 @@
-import config from '../../../config';
-import { testDeleteApi, testGetApi, testPostApi } from '../../../shared/testUtils';
+import { testGetApi } from "./testUtils";
+import { baseApi as bApi } from './test.constants';
 
 let academicFacultyId: string = "testId";
-const baseApi: string = `${config.test.baseApi}/academic-faculties`;
+const baseApi: string = `${bApi}/academic-faculties`;
 
 // const postData = {
 //     title: "test academic faculty"

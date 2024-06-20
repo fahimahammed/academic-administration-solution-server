@@ -1,8 +1,8 @@
-import config from '../../../config';
-import { testGetApi } from '../../../shared/testUtils';
+import { testGetApi } from "./testUtils";
+import { adminToken, baseApi as bApi, studentToken } from './test.constants';
 
 let Id: string = "240100001";
-const baseApi: string = `${config.test.baseApi}/student-semester-payments`;
+const baseApi: string = `${bApi}/student-semester-payments`;
 
 describe('Student Semester Payment Management', () => {
 
@@ -13,7 +13,7 @@ describe('Student Semester Payment Management', () => {
         true,
         "Student semester payment fetched successfully",
         true,
-        config.test.adminToken
+        adminToken
     );
 
     testGetApi(
@@ -23,7 +23,7 @@ describe('Student Semester Payment Management', () => {
         true,
         "Student semester payment fetched successfully",
         true,
-        config.test.studentToken
+        studentToken
     );
 
     testGetApi(
@@ -33,7 +33,7 @@ describe('Student Semester Payment Management', () => {
         false,
         "RecordNotFound",
         false,
-        config.test.adminToken
+        adminToken
     );
 
 });

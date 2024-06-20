@@ -1,8 +1,9 @@
 import request from 'supertest';
-import app from '../../../app';
-import config from '../../../config';
+import app from '../src/app';
+import { baseApi as bApi } from './test.constants';
 
-const baseApi: string = `${config.test.baseApi}/auth`;
+
+const baseApi: string = `${bApi}/auth`;
 
 describe('Authentication', () => {
     it('should login a user (SUPER ADMIN) with valid credentials', async () => {

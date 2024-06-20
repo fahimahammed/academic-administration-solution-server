@@ -1,8 +1,8 @@
-import config from '../../../config';
-import { testGetApi } from '../../../shared/testUtils';
+import { testGetApi } from "./testUtils";
+import { baseApi as bApi } from './test.constants';
 
 const buildingId: string = "438272525-kshfs-2342";
-const baseApi: string = `${config.test.baseApi}/buildings`;
+const baseApi: string = `${bApi}/buildings`;
 
 describe('Building Management', () => {
     testGetApi(

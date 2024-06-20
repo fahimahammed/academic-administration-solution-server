@@ -16,7 +16,7 @@
   },
   "include": [
     "src/**/*.ts",
-    "test/**/*.ts",
+    "tests/**/*.ts",
     // if you have tests in other directories, include them too
   ]
 }

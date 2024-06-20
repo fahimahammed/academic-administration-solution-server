@@ -1,9 +1,7 @@
-import request from 'supertest';
-import app from '../../../app';
-import config from '../../../config';
-import { testGetApi } from '../../../shared/testUtils';
+import { testGetApi } from "./testUtils";
+import { baseApi as bApi } from './test.constants';
 
-const baseApi: string = `${config.test.baseApi}/users`;
+const baseApi: string = `${bApi}/users`;
 const userId: string = "0a9ea16a-646d-42ca-9a43-8a25b632040e";
 
 describe('User Management', () => {
