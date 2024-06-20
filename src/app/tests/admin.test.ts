@@ -1,5 +1,5 @@
-import config from '../../../config';
-import { testGetApi } from '../../../shared/testUtils';
+import config from "../../config";
+import { testGetApi } from "../../shared/testUtils";
 
 const adminId: string = "A-00001";
 const baseApi: string = `${config.test.baseApi}/admins`;

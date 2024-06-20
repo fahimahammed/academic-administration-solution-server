@@ -1,5 +1,5 @@
-import config from '../../../config';
-import { testGetApi } from '../../../shared/testUtils';
+import config from "../../config";
+import { testGetApi } from "../../shared/testUtils";
 
 const buildingId: string = "438272525-kshfs-2342";
 const baseApi: string = `${config.test.baseApi}/buildings`;

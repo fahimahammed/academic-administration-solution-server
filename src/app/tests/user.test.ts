@@ -1,7 +1,5 @@
-import request from 'supertest';
-import app from '../../../app';
-import config from '../../../config';
-import { testGetApi } from '../../../shared/testUtils';
+import config from "../../config";
+import { testGetApi } from "../../shared/testUtils";
 
 const baseApi: string = `${config.test.baseApi}/users`;
 const userId: string = "0a9ea16a-646d-42ca-9a43-8a25b632040e";
