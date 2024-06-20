@@ -1,8 +1,8 @@
 import { testGetApi } from "./testUtils";
-import config from "../src/config";
+import { baseApi as bApi } from './test.constants';
 
 const academicDepartmentId: string = "fc721b77-c248-4593-97fc-b280044c8da7";
-const baseApi: string = `${config.test.baseApi}/academic-departments`;
+const baseApi: string = `${bApi}/academic-departments`;
 
 const postData = {
 

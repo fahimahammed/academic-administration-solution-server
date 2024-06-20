@@ -1,7 +1,7 @@
 import { testGetApi } from "./testUtils";
-import config from "../src/config";
+import { baseApi as bApi } from './test.constants';
 
-const baseApi: string = `${config.test.baseApi}/meta`;
+const baseApi: string = `${bApi}/meta`;
 
 describe('Meta Data', () => {
     testGetApi(

@@ -1,7 +1,7 @@
 import { testGetApi } from "./testUtils";
-import config from "../src/config";
+import { baseApi as bApi } from './test.constants';
 
-const baseApi: string = `${config.test.baseApi}/users`;
+const baseApi: string = `${bApi}/users`;
 const userId: string = "0a9ea16a-646d-42ca-9a43-8a25b632040e";
 
 describe('User Management', () => {

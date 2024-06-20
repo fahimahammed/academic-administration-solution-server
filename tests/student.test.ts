@@ -1,8 +1,8 @@
 import { testGetApi } from "./testUtils";
-import config from "../src/config";
+import { baseApi as bApi } from './test.constants';
 
 let Id: string = "240100001";
-const baseApi: string = `${config.test.baseApi}/students`;
+const baseApi: string = `${bApi}/students`;
 
 describe('Student Management', () => {
 
