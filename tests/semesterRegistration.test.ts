@@ -1,5 +1,5 @@
-import config from "../../config";
-import { testGetApi } from "../../shared/testUtils";
+import { testGetApi } from "./testUtils";
+import config from "../src/config";
 
 let Id: string = "testId";
 const baseApi: string = `${config.test.baseApi}/semester-registrations`;

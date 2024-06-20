@@ -1,6 +1,6 @@
 import request from 'supertest';
-import config from "../../config";
-import app from '../../app';
+import app from '../src/app';
+import config from '../src/config'
 
 
 const baseApi: string = `${config.test.baseApi}/auth`;

@@ -1,5 +1,5 @@
-import config from "../../config";
-import { testGetApi } from "../../shared/testUtils";
+import { testGetApi } from "./testUtils";
+import config from "../src/config";
 
 const baseApi: string = `${config.test.baseApi}/users`;
 const userId: string = "0a9ea16a-646d-42ca-9a43-8a25b632040e";

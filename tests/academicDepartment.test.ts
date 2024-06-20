@@ -1,5 +1,5 @@
-import config from "../../config";
-import { testGetApi } from "../../shared/testUtils";
+import { testGetApi } from "./testUtils";
+import config from "../src/config";
 
 const academicDepartmentId: string = "fc721b77-c248-4593-97fc-b280044c8da7";
 const baseApi: string = `${config.test.baseApi}/academic-departments`;
