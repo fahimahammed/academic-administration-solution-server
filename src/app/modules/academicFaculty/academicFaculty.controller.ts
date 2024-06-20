@@ -9,7 +9,7 @@ const insertIntoDB = async (req: Request, res: Response, next: NextFunction) => 
   try {
     const result = await AcademicFacultyService.insertIntoDB(req.body);
     sendResponse(res, {
-      statusCode: httpStatus.OK,
+      statusCode: httpStatus.CREATED,
       success: true,
       message: 'AcademicFaculty created successfully',
       data: result

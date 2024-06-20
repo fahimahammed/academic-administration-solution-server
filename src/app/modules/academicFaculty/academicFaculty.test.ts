@@ -1,12 +1,25 @@
-import request from 'supertest';
-import app from '../../../app';
 import config from '../../../config';
-import { testGetApi } from '../../../shared/testUtils';
+import { testDeleteApi, testGetApi, testPostApi } from '../../../shared/testUtils';
 
-const academicFacultyId: string = "fc721b77-c248-4593-97fc-b280044c8da7";
-const baseApi: string = `${config.testBase}/academic-faculties`;
+let academicFacultyId: string = "testId";
+const baseApi: string = `${config.test.baseApi}/academic-faculties`;
+
+// const postData = {
+//     title: "test academic faculty"
+// }
 
 describe('Academic Faculty', () => {
+    // const testPostRes = testPostApi(
+    //     'should insert data of academic faculty on database',
+    //     baseApi,
+    //     postData,
+    //     201,
+    //     true,
+    //     'AcademicFaculty created successfully',
+    //     true,
+    //     config.test.adminToken
+    // );
+
     testGetApi(
         'should retrive all academic department',
         baseApi,
@@ -17,12 +30,12 @@ describe('Academic Faculty', () => {
     );
 
     testGetApi(
-        'should retrive academic department with id',
+        'should retrive academic faculty with id',
         `${baseApi}/${academicFacultyId}`,
         200,
         true,
         "AcademicFaculty fetched successfully",
         true
-    )
+    );
 
 });

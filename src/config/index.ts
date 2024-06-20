@@ -34,6 +34,10 @@ const envVarsZodSchema = z.object({
   FAILED_URL: z.string(),
   SUPER_ADMIN_PASS: z.string(),
   TEST_BASE: z.string(),
+  TEST_SUPER_ADMIN_TOKEN: z.string(),
+  TEST_ADMIN_TOKEN: z.string(),
+  TEST_FACULTY_TOKEN: z.string(),
+  TEST_STUDENT_TOKEN: z.string(),
 });
 
 const envVars = envVarsZodSchema.parse(process.env);
@@ -72,5 +76,11 @@ export default {
     cancelUrl: envVars.CANCEL_URL,
     failedUrl: envVars.FAILED_URL
   },
-  testBase: envVars.TEST_BASE
+  test: {
+    baseApi: envVars.TEST_BASE,
+    superAdminToken: envVars.TEST_SUPER_ADMIN_TOKEN,
+    adminToken: envVars.TEST_ADMIN_TOKEN,
+    facultyToken: envVars.TEST_FACULTY_TOKEN,
+    studentToken: envVars.TEST_STUDENT_TOKEN
+  }
 };

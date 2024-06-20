@@ -2,7 +2,7 @@ import config from '../../../config';
 import { testGetApi } from '../../../shared/testUtils';
 
 const adminId: string = "A-00001";
-const baseApi: string = `${config.testBase}/admins`;
+const baseApi: string = `${config.test.baseApi}/admins`;
 
 describe('Admin Management', () => {
     testGetApi(
