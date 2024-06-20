@@ -1,5 +1,5 @@
 import { testGetApi } from "./testUtils";
-import { baseApi as bApi } from './test.constants';
+import { baseApi as bApi, facultyToken, studentToken } from './test.constants';
 
 let Id: string = "testId";
 const baseApi: string = `${bApi}/student-enrolled-course-marks`;
@@ -13,7 +13,7 @@ describe('Student enrolled course mark Management', () => {
         true,
         "Student course marks fetched successfully",
         true,
-        config.test.facultyToken
+        facultyToken
     );
 
     testGetApi(
@@ -23,7 +23,7 @@ describe('Student enrolled course mark Management', () => {
         true,
         "Student course marks fetched successfully",
         true,
-        config.test.studentToken
+        studentToken
     );
 
 });

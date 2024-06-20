@@ -1,5 +1,5 @@
 import { testGetApi } from "./testUtils";
-import { baseApi as bApi } from './test.constants';
+import { baseApi as bApi, studentToken } from './test.constants';
 
 let Id: string = "testId";
 const baseApi: string = `${bApi}/semester-registrations`;
@@ -22,7 +22,7 @@ describe('Semester Registration Management', () => {
         true,
         "Successfully fetched my registration",
         true,
-        config.test.studentToken
+        studentToken
     );
 
     // testGetApi(

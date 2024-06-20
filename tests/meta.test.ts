@@ -1,5 +1,5 @@
 import { testGetApi } from "./testUtils";
-import { baseApi as bApi } from './test.constants';
+import { baseApi as bApi, superAdminToken } from './test.constants';
 
 const baseApi: string = `${bApi}/meta`;
 
@@ -11,7 +11,7 @@ describe('Meta Data', () => {
         true,
         "Meta data fetched successfully",
         true,
-        config.test.superAdminToken
+        superAdminToken
     );
 
 });
