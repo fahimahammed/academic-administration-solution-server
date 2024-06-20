@@ -35,7 +35,7 @@ const refreshToken = async (req: Request, res: Response, next: NextFunction) => 
         sendResponse(res, {
             statusCode: httpStatus.OK,
             success: true,
-            message: "Access token genereated successfully!",
+            message: "Access token generated successfully!",
             data: result
             // data: {
             //     accessToken: result.accessToken,
