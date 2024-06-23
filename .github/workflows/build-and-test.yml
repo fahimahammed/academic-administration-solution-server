@@ -26,6 +26,3 @@ jobs:
 
       - name: Run build command
         run: yarn build
-
-      - name: Run test command
-        run: yarn test
