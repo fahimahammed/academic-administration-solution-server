@@ -1,5 +1,5 @@
 import request from 'supertest';
-import app from '../src/app';
+import app from '../../src/app';
 
 // Utility function to test GET API endpoints with optional access token
 export const testGetApi = (

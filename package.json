@@ -13,7 +13,8 @@
     "prisma:migrate": "npx prisma migrate dev ",
     "prisma:generate": "npx prisma generate",
     "prisma:studio": "npx prisma studio",
-    "test": "jest"
+    "test": "jest",
+    "unit:test": "jest tests/unit_test"
   },
   "dependencies": {
     "@prisma/client": "5",
