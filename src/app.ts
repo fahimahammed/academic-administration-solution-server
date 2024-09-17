@@ -5,8 +5,21 @@ import httpStatus from 'http-status';
 import globalExceptionHandler from './app/middlewares/globalExceptionHandler';
 import routes from './app/routes';
 import { SeedDB } from './db/seed';
+import rateLimit from 'express-rate-limit';
 
 const app: Application = express();
+
+// Rate limiter - limit each IP to 100 requests per 15 minutes
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 100, // Limit each IP to 100 requests per windowMs
+  message: {
+    success: false,
+    message: 'Too many requests from this IP, please try again after 15 minutes.',
+  },
+});
+
+app.use(limiter); // Apply the rate limiter to all requests
 
 app.use(cors({
   credentials: true,
