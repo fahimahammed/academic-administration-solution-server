@@ -23,7 +23,7 @@ const loginUser = async (payload: {
     const isCorrectPassword: boolean = await bcrypt.compare(payload.password, userData.password);
 
     if (!isCorrectPassword) {
-        throw new ApiError(httpStatus.UNAUTHORIZED, "Incorrect password")
+        throw new ApiError(httpStatus.BAD_REQUEST, "Incorrect password")
     };
 
     const accessToken = JwtHelper.createToken({
