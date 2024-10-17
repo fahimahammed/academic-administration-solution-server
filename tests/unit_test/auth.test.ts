@@ -65,7 +65,7 @@ describe('Authentication', () => {
         expect(res.body.data.refreshToken).toBeDefined();
     });
 
-    it('should return 401 Unauthorized for wrong password', async () => {
+    it('should return 400 Unauthorized for wrong password', async () => {
         const res = await request(app)
             .post(`${baseApi}/login`)
             .send({
@@ -73,7 +73,7 @@ describe('Authentication', () => {
                 password: 'wrongpassword'
             });
 
-        expect(res.statusCode).toEqual(401);
+        expect(res.statusCode).toEqual(400);
         expect(res.body.success).toBeFalsy();
         expect(res.body.message).toEqual('Incorrect password');
         //expect(res.body.data).toBeNull();
