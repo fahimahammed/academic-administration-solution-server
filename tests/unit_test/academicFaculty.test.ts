@@ -23,7 +23,7 @@ describe('Academic Faculty', () => {
     testGetApi(
         'should retrive all academic department',
         baseApi,
-        200,
+        200, // status code
         true,
         "AcademicFaculties fetched successfully",
         true
